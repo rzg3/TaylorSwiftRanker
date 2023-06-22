@@ -66,7 +66,7 @@ class LoginForm extends React.Component{
       }
 
       else if (result && result.success === false){
-        this.resetForm
+        this.resetForm();
         alert(result.msg)
       }
 
