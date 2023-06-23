@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
+import { Navigate } from 'react-router-dom';
 import UserStore from './stores/UserStore';
 import LoginForm from './LoginForm';
 import SubmitButton from './SubmitButton';
@@ -68,7 +69,7 @@ class App extends React.Component{
     }
 
   }
-
+  
   render() {
 
     if (UserStore.loading){
@@ -83,23 +84,10 @@ class App extends React.Component{
 
     else {
 
-      if(UserStore.isLoggedIn){
-        return (
-          <div className="app">
-            <div className="container">
-              Welcome {UserStore.username}
-
-              <SubmitButton
-                text={'Log out'}
-                disabled={false}
-                onClick={ () => this.doLogout() }
-              />
-
-            </div>
-          </div>
-        );
+      if (UserStore.isLoggedIn) {
+        return <Navigate to="/dashboard" />;
       }
-
+      
       return (
         <div className="app">
           <div className="container">
