@@ -16,7 +16,7 @@ body, html, #root, .app, .container {
     background-color: #282c34;
 }
 
-.loginForm {
+.loginForm .registerForm {
     box-sizing: border-box;
     width: 100%;
     max-width: 400px;
