@@ -51,13 +51,24 @@ class Router {
               return;
             }
             else {
-              res.json({
-                success: true,
-                msg: 'User inserted successfully',
+              db.query('SELECT * FROM user WHERE username = ? LIMIT 1', cols, (err, data, fields) => {
+                if (err) {
+                  res.json({
+                    success: false,
+                    msg: 'An error occurred, please try again',
+                  });
+                  return;
+                }
+  
+                req.session.userID = data[0].id;
+                res.json({
+                  success: true,
+                  username: username,
+                  msg: 'User inserted successfully',
+                });
               });
             }
           });
-          
  
         }
       });
@@ -94,6 +105,7 @@ class Router {
           bcrypt.compare(password, data[0].password, (bcryptErr, verified) => {
             if (verified) {
               req.session.userID = data[0].id;
+              console.log(req.session.userID)
 
               res.json({
                 success: true,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import UserStore from './stores/UserStore';
 import LoginForm from './LoginForm';
 import SubmitButton from './SubmitButton';
@@ -30,14 +30,14 @@ class App extends React.Component{
 
       else{
         UserStore.loading = false;
-        UserStore.isLogginedIn = false;
+        UserStore.isLoggedIn = false;
       }
     }
       
 
     catch(e) {
       UserStore.loading = false;
-      UserStore.isLogginedIn = false;
+      UserStore.isLoggedIn = false;
     }
 
   }
@@ -69,7 +69,7 @@ class App extends React.Component{
     }
 
   }
-  
+
   render() {
 
     if (UserStore.loading){
@@ -92,6 +92,7 @@ class App extends React.Component{
         <div className="app">
           <div className="container">
            <LoginForm />
+           <SubmitButton text="Register New Account" disabled={false} onClick={event => window.location.href='/register'}/>
           </div>
       </div>
       );
