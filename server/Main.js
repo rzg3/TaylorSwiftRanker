@@ -63,4 +63,8 @@ app.get('/register', function(req, res) {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 });
 
+app.get('/ranker', function(req, res) {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'))
+});
+
 app.listen(3000);

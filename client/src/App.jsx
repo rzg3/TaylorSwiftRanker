@@ -1,23 +1,26 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Navigate, useNavigate, useLocation  } from 'react-router-dom';
 import UserStore from './stores/UserStore';
 import LoginForm from './LoginForm';
 import SubmitButton from './SubmitButton';
 import './App.css'
+import Dashboard from './Dashboard';
+import Ranker from './Ranker';
+import Register from './Register';
+import ProtectedRoute from './ProtectedRoute';
 
 class App extends React.Component{
 
   async componentDidMount() {
-
     try {
-
       let res = await fetch('/isLoggedIn', {
         method: 'post',
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
       });
 
       let result = await res.json();
@@ -26,22 +29,16 @@ class App extends React.Component{
         UserStore.loading = false;
         UserStore.isLoggedIn = true;
         UserStore.username = result.username;
-      }
-
-      else{
+      } else {
         UserStore.loading = false;
         UserStore.isLoggedIn = false;
       }
-    }
-      
-
-    catch(e) {
+    } catch (e) {
       UserStore.loading = false;
       UserStore.isLoggedIn = false;
     }
-
-  }
-
+  };
+  
   async doLogout() {
 
     try {
@@ -84,9 +81,23 @@ class App extends React.Component{
 
     else {
 
-      if (UserStore.isLoggedIn) {
-        return <Navigate to="/dashboard" />;
-      }
+        return (
+          <div className="app">
+            <Router>
+              <Routes>
+                <Route 
+                  path="/" 
+                  element={UserStore.isLoggedIn ? <Navigate to="/dashboard" replace={true} /> : 
+                  <div><LoginForm /> <SubmitButton text="Register New Account" disabled={false} onClick={event => window.location.href='/register'}/></div> } 
+                />
+                <Route path="/dashboard" element={UserStore.isLoggedIn ? <Dashboard />: <Navigate to="/" replace={true} />} />
+                <Route path="/register" element={UserStore.isLoggedIn ? <Navigate to="/dashboard" replace={true} /> : <Register />} />
+                <Route path="/ranker" element={UserStore.isLoggedIn ? <Ranker />  : <Navigate to="/" replace={true} />} />
+              </Routes>
+            </Router>
+          </div>
+        );
+        
       
       return (
         <div className="app">

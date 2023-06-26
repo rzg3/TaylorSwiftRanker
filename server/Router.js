@@ -6,6 +6,7 @@ class Router {
     this.login(app, db);
     this.logout(app, db);
     this.isLoggedIn(app, db);
+    this.saveRankings(app,db);
 
   }
 
@@ -168,6 +169,54 @@ class Router {
       }
     });
   }
+
+  saveRankings(app, db) {
+    app.post('/saveRankings', (req, res) => {
+      const rankings = req.body.rankings;
+  
+      // Update the rankings in the database
+      const userId = req.session.userID;
+      rankings.forEach(async (album, index) => {
+        // Retrieve the album ID based on the album name
+        const albumQuery = 'SELECT album_id FROM albums WHERE album_name = ?';
+        const [rows] = await db.promise().query(albumQuery, [album]);
+  
+        if (rows.length > 0) {
+          const albumId = rows[0].album_id;
+  
+          // Check if an entry already exists for the album ranking
+          const checkQuery = 'SELECT COUNT(*) as count FROM album_ranking WHERE album_id = ? AND user_id = ?';
+          const [checkRows] = await db.promise().query(checkQuery, [albumId, userId]);
+  
+          if (checkRows[0].count > 0) {
+            // Update the existing album ranking
+            const updateQuery = 'UPDATE album_ranking SET rank = ? WHERE album_id = ? AND user_id = ?';
+            db.query(updateQuery, [index + 1, albumId, userId], (error, result) => {
+              if (error) {
+                console.error('Error updating album ranking:', error);
+                res.status(500).send('Internal Server Error');
+              }
+            });
+          } else {
+            // Insert a new album ranking for the user
+            const insertQuery = 'INSERT INTO album_ranking (user_id, album_id, `rank`) VALUES (?, ?, ?)';
+            db.query(insertQuery, [userId, albumId, index + 1], (error, result) => {
+              if (error) {
+                console.error('Error inserting album ranking:', error);
+                return res.status(500).send('Internal Server Error');
+              }
+            });
+          }
+        } else {
+          console.error(`Album not found: ${album}`);
+        }
+      });
+  
+      // Send a success response
+      return res.sendStatus(200);
+    });
+  }
+  
 
 
   

@@ -16,40 +16,7 @@ class Register extends React.Component{
         buttonDisabled: false
         }
     }
-    async componentDidMount() {
 
-        try {
-    
-          let res = await fetch('/isLoggedIn', {
-            method: 'post',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            }
-          });
-    
-          let result = await res.json();
-    
-          if (result && result.success) {
-            UserStore.loading = false;
-            UserStore.isLoggedIn = true;
-            UserStore.username = result.username;
-          }
-    
-          else{
-            UserStore.loading = false;
-            UserStore.isLoggedIn = false;
-          }
-        }
-          
-    
-        catch(e) {
-          UserStore.loading = false;
-          UserStore.isLoggedIn = false;
-        }
-    
-      }
-    
     setInputValue(property, val) {
         val = val.trim();
         if (val.length > 15) {

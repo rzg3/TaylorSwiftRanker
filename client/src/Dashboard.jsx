@@ -35,7 +35,7 @@ class Dashboard extends React.Component {
       <div className="app">
         <div className="container">
           Welcome {username}
-
+          <SubmitButton text="Album Ranker" disabled={false} onClick={event => window.location.href='/ranker'}/>
           <SubmitButton text="Log out" disabled={false} onClick={this.handleLogout} />
         </div>
       </div>
