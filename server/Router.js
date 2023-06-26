@@ -190,7 +190,7 @@ class Router {
   
           if (checkRows[0].count > 0) {
             // Update the existing album ranking
-            const updateQuery = 'UPDATE album_ranking SET rank = ? WHERE album_id = ? AND user_id = ?';
+            const updateQuery = 'UPDATE album_ranking SET `rank` = ? WHERE album_id = ? AND user_id = ?';
             db.query(updateQuery, [index + 1, albumId, userId], (error, result) => {
               if (error) {
                 console.error('Error updating album ranking:', error);
