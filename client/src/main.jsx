@@ -6,7 +6,7 @@ import Dashboard from "./Dashboard";
 import './index.css'
 import ProtectedRoute from './ProtectedRoute';
 import Register from './Register';
-
+import Ranker from './Ranker';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -28,6 +28,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               </div>
             </div>
           }/>
+          <Route path="/ranker" element={<Ranker />}/>
         </Routes>
     </BrowserRouter>
   </React.StrictMode>,

@@ -105,7 +105,6 @@ class Router {
           bcrypt.compare(password, data[0].password, (bcryptErr, verified) => {
             if (verified) {
               req.session.userID = data[0].id;
-              console.log(req.session.userID)
 
               res.json({
                 success: true,
