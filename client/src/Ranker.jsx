@@ -2,12 +2,33 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import { DndContext, closestCenter } from '@dnd-kit/core';
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SortableItem } from './SortableItem';
 import SubmitButton from './SubmitButton';
 
 function Ranker() {
+
     const [albums, setAlbums] = useState(["Taylor Swift", "Fearless", "Speak Now", "Red", "1989", "Reputation", "Lover", "folklore", "evermore", "Midnights"]);
+
+    useEffect(() => {
+      fetchRankings();
+    }, []);
+  
+    const fetchRankings = async () => {
+      try {
+        const response = await fetch('/getRankings', {
+          method: 'GET',
+        });
+        if (response.ok) {
+          const rankings = await response.json();
+          setAlbums(rankings);
+        } else {
+          console.error('Error fetching rankings:', response.status);
+        }
+      } catch (error) {
+        console.error('Error fetching rankings:', error);
+      }
+    };
 
     const handleSave = async () => {
         try {

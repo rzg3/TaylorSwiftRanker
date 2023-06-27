@@ -7,7 +7,7 @@ class Router {
     this.logout(app, db);
     this.isLoggedIn(app, db);
     this.saveRankings(app,db);
-
+    this.getRankings(app,db);
   }
 
   register(app, db) {
@@ -216,6 +216,29 @@ class Router {
       return res.sendStatus(200);
     });
   }
+  
+  getRankings(app, db) {
+    app.get('/getRankings', (req, res) => {
+      const userId = req.session.userID;
+  
+      const query = 'SELECT a.album_name ' +
+        'FROM albums AS a ' +
+        'LEFT JOIN album_ranking AS ar ON a.album_id = ar.album_id AND ar.user_id = ? ' +
+        'ORDER BY COALESCE(ar.rank, a.album_id)';
+  
+      db.query(query, [userId], (error, results) => {
+        if (error) {
+          console.error('Error fetching rankings:', error);
+          res.status(500).send('Internal Server Error');
+        } else {
+          const rankings = results.map(row => row.album_name);
+          res.json(rankings);
+        }
+      });
+    });
+  }
+  
+  
   
 
 
