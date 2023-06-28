@@ -92,7 +92,7 @@ class App extends React.Component{
                 />
                 <Route path="/dashboard" element={UserStore.isLoggedIn ? <Dashboard />: <Navigate to="/" replace={true} />} />
                 <Route path="/register" element={UserStore.isLoggedIn ? <Navigate to="/dashboard" replace={true} /> : <Register />} />
-                <Route path="/ranker" element={UserStore.isLoggedIn ? <Ranker />  : <Navigate to="/" replace={true} />} />
+                <Route path="/albums" element={UserStore.isLoggedIn ? <Ranker getRoute="/getRankings" postRoute="saveRankings"/>  : <Navigate to="/" replace={true} />} />
               </Routes>
             </Router>
           </div>

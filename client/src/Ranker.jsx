@@ -6,9 +6,10 @@ import { useState, useEffect } from 'react';
 import { SortableItem } from './SortableItem';
 import SubmitButton from './SubmitButton';
 
-function Ranker() {
-
-    const [albums, setAlbums] = useState(["Taylor Swift", "Fearless", "Speak Now", "Red", "1989", "Reputation", "Lover", "folklore", "evermore", "Midnights"]);
+function Ranker(props) {
+    const getRoute = props.getRoute
+    const postRoute = props.postRoute
+    const [albums, setAlbums] = useState([]);
 
     useEffect(() => {
       fetchRankings();
@@ -16,7 +17,7 @@ function Ranker() {
   
     const fetchRankings = async () => {
       try {
-        const response = await fetch('/getRankings', {
+        const response = await fetch(getRoute, {
           method: 'GET',
         });
         if (response.ok) {
@@ -32,7 +33,7 @@ function Ranker() {
 
     const handleSave = async () => {
         try {
-          const response = await fetch('/saveRankings', {
+          const response = await fetch(postRoute, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
