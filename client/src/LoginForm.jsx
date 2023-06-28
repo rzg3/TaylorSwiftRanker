@@ -84,7 +84,7 @@ class LoginForm extends React.Component{
     return (
       <div className="loginForm">
         
-        Log in
+        <h3>Login Form</h3>
         <InputField
           type='text'
           placeholder='Username'

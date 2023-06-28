@@ -90,7 +90,7 @@ class Register extends React.Component{
         return (
             <div className="registerForm">
                 
-                Register
+                <h3>Register</h3>
                 <InputField
                 type='text'
                 placeholder='Username'

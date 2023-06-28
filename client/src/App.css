@@ -1,20 +1,14 @@
-/* body, html, #root, .app, .container {
+body, html, #root, .app, .container {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
+h3 {
+    text-align: center;
+  }
 
-.container {
-    font-size: 28px;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #282c34;
-}
 
 .loginForm .registerForm {
     box-sizing: border-box;
@@ -46,7 +40,7 @@
 
 
 .btn {
-    width: 100%;
+    width: 50%;
     min-width: 280px;
     color: #565656;
     padding: 12px;
@@ -56,4 +50,5 @@
     border-radius: 4px;
     background: #fff;
     cursor: pointer;
-} */
+}
+

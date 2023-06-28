@@ -3,6 +3,7 @@ import SubmitButton from './SubmitButton';
 import { Navigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import UserStore from './stores/UserStore';
+import './App.css'
 
 class Dashboard extends React.Component {
   handleLogout = async () => {
@@ -33,8 +34,8 @@ class Dashboard extends React.Component {
 
     return (
       <div className="app">
-        <div className="container">
-          Welcome {username}
+        <div className="registerForm">
+          <h3>Welcome {username}</h3>
           <SubmitButton text="Album Ranker" disabled={false} onClick={event => window.location.href='/albums'}/>
           <SubmitButton text="Log out" disabled={false} onClick={this.handleLogout} />
         </div>

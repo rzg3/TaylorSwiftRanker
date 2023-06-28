@@ -9,6 +9,8 @@ import './App.css'
 import Dashboard from './Dashboard';
 import Ranker from './Ranker';
 import Register from './Register';
+import { Container, Row, Col } from 'react-bootstrap';
+
 import ProtectedRoute from './ProtectedRoute';
 
 class App extends React.Component{
@@ -87,11 +89,34 @@ class App extends React.Component{
               <Routes>
                 <Route 
                   path="/" 
-                  element={UserStore.isLoggedIn ? <Navigate to="/dashboard" replace={true} /> : 
-                  <div><LoginForm /> <SubmitButton text="Register New Account" disabled={false} onClick={event => window.location.href='/register'}/></div> } 
+                  element={
+                    UserStore.isLoggedIn ? <Navigate to="/dashboard" replace={true} /> : 
+                    <Container className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '100vh', width: '100%', maxWidth: '10000px' }}>
+                      <LoginForm />
+                      <SubmitButton text="Register New Account" disabled={false} onClick={event => window.location.href='/register'} />
+                    </Container>
+                  } 
                 />
-                <Route path="/dashboard" element={UserStore.isLoggedIn ? <Dashboard />: <Navigate to="/" replace={true} />} />
-                <Route path="/register" element={UserStore.isLoggedIn ? <Navigate to="/dashboard" replace={true} /> : <Register />} />
+                <Route 
+                  path="/dashboard" 
+                  element={
+                    UserStore.isLoggedIn ? 
+                    <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh;"}}>
+                      <Dashboard />
+                    </Container> : 
+                    <Navigate to="/" replace={true} />
+
+                  } 
+                />
+                <Route 
+                  path="/register" 
+                  element={
+                    UserStore.isLoggedIn ? <Navigate to="/dashboard" replace={true} /> :
+                    <Container className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '100vh', width: '100%', maxWidth: '10000px' }}>
+                      <Register /> 
+                    </Container>
+                  } 
+                />
                 <Route path="/albums" element={UserStore.isLoggedIn ? <Ranker getRoute="/getRankings" postRoute="saveRankings"/>  : <Navigate to="/" replace={true} />} />
               </Routes>
             </Router>

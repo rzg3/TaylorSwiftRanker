@@ -7,7 +7,8 @@ class SubmitButton extends React.Component{
       <div className="submitButton">
           
         <button
-          className="btn"
+          type="button" 
+          className="btn btn-outline-primary"
           disabled={this.props.disabled}
           onClick= { () => this.props.onClick() }
         >
@@ -19,6 +20,6 @@ class SubmitButton extends React.Component{
     );
   }
 
-}
+} 
 
 export default SubmitButton
