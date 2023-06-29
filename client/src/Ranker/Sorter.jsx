@@ -24,15 +24,47 @@ const OVERLAY_STYLES = {
     zIndex: 1000
 }
 
-export default function SorterPopUp( {open, onClose }) {
+export default function SorterPopUp( {open, onClose, albums, setAlbums }) {
     if (!open) return null
     
     return ReactDOM.createPortal(
         <>
             <div style={OVERLAY_STYLES} />
             <div style={MODAL_STYLES}>
-            
-            <button className='btn btn-outline-primary submitButton' onClick={onClose}>Close Modal</button>
+                <div className='contain'>
+                    <div className='leftContent'>
+                        <div className="art">
+                            <img className="album_art2" src={`album_art/${albums[0].album_name}.png`} alt="Album Art" />
+                        </div>
+                        
+                        <div className="desc">
+                            <div className="display_content">{albums[0].album_name}</div>
+                            <div className="youtube_link">
+                                <a href={albums[0].youtube_link} target="_blank" rel="noopener noreferrer">
+                                    <img className="youtube_logo2" src="youtubelogo.png" alt="YouTube Logo" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='middleContent'>
+
+                    </div>
+                    <div className='rightContent'>
+                    <div className="art">
+                            <img className="album_art2" src={`album_art/${albums[1].album_name}.png`} alt="Album Art" />
+                        </div>
+                        
+                        <div className="desc">
+                            <div className="display_content">{albums[1].album_name}</div>
+                            <div className="youtube_link">
+                                <a href={albums[1].youtube_link} target="_blank" rel="noopener noreferrer">
+                                    <img className="youtube_logo2" src="youtubelogo.png" alt="YouTube Logo" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button className='btn btn-outline-primary submitButton' onClick={onClose}>Rank Manually</button>
             
             </div>
         </>,

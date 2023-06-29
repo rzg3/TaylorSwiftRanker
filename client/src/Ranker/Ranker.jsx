@@ -88,7 +88,7 @@ function Ranker(props) {
                 </SortableContext>
                 <SubmitButton text="Save Rankings" disabled={false} onClick={handleSave}/>
                 <button className='btn btn-outline-primary submitButton' onClick={() => setOpenSorter(true)}>Open Sorter</button>
-                <SorterPopUp open={openSorter} onClose={() => setOpenSorter(false)}/>
+                <SorterPopUp open={openSorter} onClose={() => setOpenSorter(false)} albums={albums} setAlbums={setAlbums}/>
                 <SubmitButton className="custom-padding" text="Return to Dashboard" disabled={false} onClick={event => window.location.href='/dashboard'}/>
                 
             </Container>

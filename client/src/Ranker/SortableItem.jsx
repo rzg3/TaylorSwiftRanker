@@ -23,7 +23,7 @@ export function SortableItem(props){
     return (
         <div className='rectangle' ref={setNodeRef} style={style} {...attributes} {...listeners}>
             <div className="left-content">
-            <   img className="album_art" src={`album_art/${props.display}.png`} alt="Album Art" />
+            <img className="album_art" src={`album_art/${props.display}.png`} alt="Album Art" />
             </div>
            
             <div className="right-content">
