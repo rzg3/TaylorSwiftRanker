@@ -100,7 +100,7 @@ class App extends React.Component{
                 <Route 
                   path="/dashboard" 
                   element={
-                    UserStore.isLoggedIn ? 
+                    UserStore.isLoggedIn || UserStore.isDevelopment ? 
                     <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh;"}}>
                       <Dashboard />
                     </Container> : 
@@ -117,7 +117,7 @@ class App extends React.Component{
                     </Container>
                   } 
                 />
-                <Route path="/albums" element={UserStore.isLoggedIn ? <Ranker getRoute="/getRankings" postRoute="saveRankings"/>  : <Navigate to="/" replace={true} />} />
+                <Route path="/albums" element={UserStore.isLoggedIn || UserStore.isDevelopment ? <Ranker getRoute="/getRankings" postRoute="saveRankings"/>  : <Navigate to="/" replace={true} />} />
               </Routes>
             </Router>
           </div>

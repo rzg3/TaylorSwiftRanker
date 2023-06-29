@@ -81,9 +81,9 @@ function Ranker(props) {
                       <SortableItem key={album.album_name} id={album} display={album.album_name} youtube_link={album.youtube_link}/>)}
                 </SortableContext>
                 <SubmitButton text="Save Rankings" disabled={false} onClick={handleSave}/>
+                {/* <SubmitButton text="Use Ranker" disabled={false} onClick={handleSave}/> */}
                 <SubmitButton className="custom-padding" text="Return to Dashboard" disabled={false} onClick={event => window.location.href='/dashboard'}/>
             </Container>
-            
         </DndContext>
 
     );

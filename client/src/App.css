@@ -60,32 +60,68 @@ h3 {
     flex-direction: column;
 }
 
-.youtube_link {
-    max-width: 15%;
-    max-height: 15%;
+  
+  .left-content {
+    flex: 1 1 auto;
+     /* Set the padding-bottom to create a square shape */
+    position: relative;
+    width: 50%;
+    height: 100%;
+  }
+  
+  .album_art {
+    position: absolute;
+    top: 0;
+    border-radius: 0.6666666em;;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .right-content {
+    flex: 1 1 auto;
     display: flex;
-    justify-content: flex-end;
-    margin: 0 auto;
+    width: 50%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px; /* Adjust the padding as needed */
+  }
+
+  .rectangle {
+    display: flex;
+    width: 20em;
+    height: 10em;
+    border: #292929;
+    border: 3.5px dashed rgba(0, 0, 0, 0.5);
+    border-radius: 1em;
+    margin: 1em;
+    padding: 0.1em 0.2em;
+  }
+  
+  .display_content {
+    font-weight: bold;
+    margin-bottom: 10px; /* Adjust the margin as needed */
+  }
+  
+
+
+.youtube_link {
+    max-width: 40%;
+    max-height: 40%;
+    cursor: pointer;
 }
 
-.youtube_logo {
+  .youtube_logo {
     max-width: 100%;
     max-height: 100%;
-    display: block;
-    margin: 0 auto;
-}
 
-.card_class {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+  }
 
 
 
-.display_content {
-    text-align: center;
-    /* Additional styling for the props.display */
-}
+  
 
 
