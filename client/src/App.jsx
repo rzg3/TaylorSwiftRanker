@@ -7,7 +7,7 @@ import LoginForm from './LoginForm';
 import SubmitButton from './SubmitButton';
 import './App.css'
 import Dashboard from './Dashboard';
-import Ranker from './Ranker';
+import Ranker from './Ranker/Ranker';
 import Register from './Register';
 import { Container, Row, Col } from 'react-bootstrap';
 

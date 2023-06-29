@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import './App.css';
+import '../App.css';
 
 export function SortableItem(props){
     // props.id

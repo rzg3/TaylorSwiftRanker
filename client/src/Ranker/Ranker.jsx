@@ -4,12 +4,15 @@ import { DndContext, closestCenter } from '@dnd-kit/core';
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useState, useEffect } from 'react';
 import { SortableItem } from './SortableItem';
-import SubmitButton from './SubmitButton';
+import SubmitButton from '../SubmitButton';
+import SorterPopUp from './Sorter'
 
 function Ranker(props) {
+
     const getRoute = props.getRoute
     const postRoute = props.postRoute
     const [albums, setAlbums] = useState([]);
+    const [openSorter, setOpenSorter] = useState(false);
 
     useEffect(() => {
       fetchRankings();
@@ -65,11 +68,14 @@ function Ranker(props) {
             });
         }
     };
+
+
     return (
         <DndContext
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
         >
+            
             <Container className="p-3" style={{"width": "50%"}} align="center">
                 <h3>Rank Taylor Swift Albums</h3>
                 <SortableContext
@@ -81,10 +87,13 @@ function Ranker(props) {
                       <SortableItem key={album.album_name} id={album} display={album.album_name} youtube_link={album.youtube_link}/>)}
                 </SortableContext>
                 <SubmitButton text="Save Rankings" disabled={false} onClick={handleSave}/>
-                {/* <SubmitButton text="Use Ranker" disabled={false} onClick={handleSave}/> */}
+                <button className='btn btn-outline-primary submitButton' onClick={() => setOpenSorter(true)}>Open Sorter</button>
+                <SorterPopUp open={openSorter} onClose={() => setOpenSorter(false)}/>
                 <SubmitButton className="custom-padding" text="Return to Dashboard" disabled={false} onClick={event => window.location.href='/dashboard'}/>
+                
             </Container>
         </DndContext>
+        
 
     );
 }
