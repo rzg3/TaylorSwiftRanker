@@ -34,7 +34,7 @@ class Dashboard extends React.Component {
 
     return (
       <div className="app">
-        <div className="registerForm">
+        <div className="centered">
           <h3>Welcome {username}</h3>
           <SubmitButton text="Album Ranker" disabled={false} onClick={event => window.location.href='/albums'}/>
           <SubmitButton text="Log out" disabled={false} onClick={this.handleLogout} />

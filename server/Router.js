@@ -221,7 +221,7 @@ class Router {
     app.get('/getRankings', (req, res) => {
       const userId = req.session.userID;
   
-      const query = 'SELECT a.album_name ' +
+      const query = 'SELECT a.album_name, a.youtube_link ' +
         'FROM albums AS a ' +
         'LEFT JOIN album_ranking AS ar ON a.album_id = ar.album_id AND ar.user_id = ? ' +
         'ORDER BY COALESCE(ar.rank, a.album_id)';
@@ -231,17 +231,15 @@ class Router {
           console.error('Error fetching rankings:', error);
           res.status(500).send('Internal Server Error');
         } else {
-          const rankings = results.map(row => row.album_name);
+          const rankings = results.map(row => ({
+            album_name: row.album_name,
+            youtube_link: row.youtube_link
+          }));
           res.json(rankings);
         }
       });
     });
   }
-  
-  
-  
-
-
   
 }
 

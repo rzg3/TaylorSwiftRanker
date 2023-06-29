@@ -35,7 +35,8 @@ h3 {
 }
 
 .submitButton {
-    padding-top: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 
@@ -51,4 +52,40 @@ h3 {
     background: #fff;
     cursor: pointer;
 }
+
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.youtube_link {
+    max-width: 15%;
+    max-height: 15%;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 auto;
+}
+
+.youtube_logo {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.card_class {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+.display_content {
+    text-align: center;
+    /* Additional styling for the props.display */
+}
+
 

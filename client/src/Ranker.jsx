@@ -32,24 +32,25 @@ function Ranker(props) {
     };
 
     const handleSave = async () => {
-        try {
-          const response = await fetch(postRoute, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ rankings: albums })
-          });
+      try {
+        const albumNames = albums.map(album => album.album_name); // Extract album names
+        const response = await fetch(postRoute, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ rankings: albumNames }) // Pass album names instead of the entire albums array
+        });
     
-          if (response.ok) {
-            console.log('Rankings saved successfully!');
-          } else {
-            console.error('Error saving rankings:', response.status);
-          }
-        } catch (error) {
-          console.error('Error saving rankings:', error);
+        if (response.ok) {
+          console.log('Rankings saved successfully!');
+        } else {
+          console.error('Error saving rankings:', response.status);
         }
-      };
+      } catch (error) {
+        console.error('Error saving rankings:', error);
+      }
+    };
     
     const handleDragEnd = (event) => {
         console.log("Drag end called");
@@ -76,10 +77,11 @@ function Ranker(props) {
                     strategy={verticalListSortingStrategy}
                 >
                     {/* We need components that use the useSortable hook */}
-                    {albums.map(album => <SortableItem key={album} id={album}/>)}
+                    {albums.map(album => 
+                      <SortableItem key={album.album_name} id={album} display={album.album_name} youtube_link={album.youtube_link}/>)}
                 </SortableContext>
                 <SubmitButton text="Save Rankings" disabled={false} onClick={handleSave}/>
-                <SubmitButton text="Return to Dashboard" disabled={false} onClick={event => window.location.href='/dashboard'}/>
+                <SubmitButton className="custom-padding" text="Return to Dashboard" disabled={false} onClick={event => window.location.href='/dashboard'}/>
             </Container>
             
         </DndContext>
