@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import SubmitButton from '../SubmitButton';
 import "./Sorter.css";
@@ -29,67 +29,52 @@ export const stateContext = React.createContext({})
 export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
     const [leftChoice, setLeftChoice] = useState(null);
     const [rightChoice, setRightChoice] = useState(null);
-    const [userChoice, setUserChoice] = useState(null);
+    const userChoiceRef = useRef(null);
     const [sortedArr, setSortedArr] = useState([]);
 
+    const merge = async (left, right) => {
+        const merged = [];
+      
+        while (left.length && right.length) {
+            setLeftChoice(left[0]);
+            setRightChoice(right[0]);
+            userChoiceRef.current = null;
+        
+            while (userChoiceRef.current === null) {
+                await new Promise((resolve) => setTimeout(resolve, 250));
+            }
+        
+            const chosenAlbum = userChoiceRef.current;
+            
+            if (chosenAlbum === left[0]) {
+                merged.push(left.shift());
+            } else {
+                merged.push(right.shift());
+            }
+        }
+      
+        console.log([ ...merged, ...left, ...right ]);
+        return [ ...merged, ...left, ...right ]
+      };
+      
     const mergeSort = async (arr) => {
-
         if (arr.length <= 1) {
             return arr;
         }
-    
+        
         const mid = Math.floor(arr.length / 2);
         const left = arr.slice(0, mid);
         const right = arr.slice(mid);
-    
+        
         return await merge(await mergeSort(left), await mergeSort(right));
     };
-    
-    const merge = async (left, right) => {
-        let i = 0;
-        let j = 0;
-        const merged = [];
-      
-        while (i < left.length && j < right.length) {
-            setLeftChoice(left[i]);
-            setRightChoice(right[j]);
-            setUserChoice(null)
-            
-            while (userChoice === null) {
-                await new Promise((resolve) => setTimeout(resolve, 500));
-            }
 
-            const chosenAlbum = userChoice === 1 ? left[i] : right[j];
-                
-            if (chosenAlbum === left[i]) {
-                merged.push(left[i]);
-                i++;
-            } else {
-                merged.push(right[j]);
-                j++;
-            }
-        }
-        
-        while (i < left.length) {
-          merged.push(left[i]);
-          i++;
-        }
-      
-        while (j < right.length) {
-          merged.push(right[j]);
-          j++;
-        }
-        console.log(merged)
-        return merged;
-      };
-      
     const handleUserChoice = (chosenAlbum) => {
-        setUserChoice(chosenAlbum);
-        console.log("23232", userChoice)
+        userChoiceRef.current = chosenAlbum;
     };
       
     useEffect(() => {
-    let isSortingCompleted = false;
+        let isSortingCompleted = false;
     
         const sortAlbums = async () => {
             if (open && !isSortingCompleted) {
@@ -131,7 +116,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
                     </div>
                 </div>
                 <div className="middleContent">
-                    {userChoice === null ? (
+                    {userChoiceRef.current === null ? (
                     <div>
                         <div>{leftChoice.album_name}</div>
                         <button onClick={() => handleUserChoice(leftChoice)}>Prefer This</button>
@@ -139,7 +124,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
                         <button onClick={() => handleUserChoice(rightChoice)}>Prefer That</button>
                     </div>
                     ) : (
-                    <div>{console.log(userChoice)}</div>
+                    <div>{console.log(userChoiceRef)}</div>
                     )}
                 </div>
                 <div className="rightContent">
