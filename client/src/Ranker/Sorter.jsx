@@ -12,6 +12,7 @@ const MODAL_STYLES = {
     backgroundColor: '#FFF',
     padding: '50px',
     zIndex: 1000
+
 }
 
 const OVERLAY_STYLES = {
@@ -98,17 +99,19 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
     return ReactDOM.createPortal(
         <>
         <div style={OVERLAY_STYLES} />
-        <div style={MODAL_STYLES}>
+        <div style={MODAL_STYLES} className='contain2'>
             <div className="contain">
             {leftChoice && rightChoice ? (
+                
+
                 <>
                 <div className="leftContent">
                     <div className="art">
-                    <img className="album_art2" src={`album_art/${leftChoice.album_name}.png`} alt="Album Art" />
+                    <img className="album_art2" src={`album_art/${leftChoice.album_name}.png`} alt="Album Art" onClick={() => handleUserChoice(leftChoice)}/>
                     </div>
                     <div className="desc">
-                    <div className="display_content">{leftChoice.album_name}</div>
-                    <div className="youtube_link">
+                    <div className="display_content2">{leftChoice.album_name}</div>
+                    <div className="youtube_link2">
                         <a href={leftChoice.youtube_link} target="_blank" rel="noopener noreferrer">
                         <img className="youtube_logo2" src="youtubelogo.png" alt="YouTube Logo" />
                         </a>
@@ -116,24 +119,15 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
                     </div>
                 </div>
                 <div className="middleContent">
-                    {userChoiceRef.current === null ? (
-                    <div>
-                        <div>{leftChoice.album_name}</div>
-                        <button onClick={() => handleUserChoice(leftChoice)}>Prefer This</button>
-                        <div>{rightChoice.album_name}</div>
-                        <button onClick={() => handleUserChoice(rightChoice)}>Prefer That</button>
-                    </div>
-                    ) : (
-                    <div>{console.log(userChoiceRef)}</div>
-                    )}
+                   Choose Your Favorite Album
                 </div>
                 <div className="rightContent">
                     <div className="art">
-                    <img className="album_art2" src={`album_art/${rightChoice.album_name}.png`} alt="Album Art" />
+                    <img className="album_art2" src={`album_art/${rightChoice.album_name}.png`} alt="Album Art" onClick={() => handleUserChoice(rightChoice)}/>
                     </div>
                     <div className="desc">
-                    <div className="display_content">{rightChoice.album_name}</div>
-                    <div className="youtube_link">
+                    <div className="display_content2">{rightChoice.album_name}</div>
+                    <div className="youtube_link2">
                         <a href={rightChoice.youtube_link} target="_blank" rel="noopener noreferrer">
                         <img className="youtube_logo2" src="youtubelogo.png" alt="YouTube Logo" />
                         </a>
@@ -145,7 +139,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
                 <div>Loading...</div>
             )}
             </div>
-            <button className="btn btn-outline-primary submitButton" onClick={handleClose}>
+            <button className="btn btn-outline-primary submitButton manualButton" onClick={handleClose}>
             Rank Manually
             </button>
         </div>

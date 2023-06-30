@@ -92,14 +92,13 @@ h3 {
 
   .rectangle {
     display: flex;
-    width: 20em;
-    height: 10em;
-    border: #292929;
-    border: 3.5px dashed rgba(0, 0, 0, 0.5);
-    border-radius: 1em;
-    margin: 1em;
-    padding: 0.1em 0.2em;
-  }
+    width: 30vh;
+    height: 15vh;
+    border: 3.5px dashed rgba(0,0,0,.5);
+    border-radius: 1.5vh;
+    margin: 1vh;
+    padding: 0.1vh 0.2vh;
+}
   
   .display_content {
     font-weight: bold;
