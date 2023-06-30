@@ -12,7 +12,7 @@ function Ranker(props) {
     const getRoute = props.getRoute
     const postRoute = props.postRoute
     const [albums, setAlbums] = useState([]);
-    const [openSorter, setOpenSorter] = useState(false);
+    const [openSorter, setOpenSorter] = useState(true);
 
     useEffect(() => {
       fetchRankings();

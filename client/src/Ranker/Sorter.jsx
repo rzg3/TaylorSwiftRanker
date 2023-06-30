@@ -42,7 +42,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
             userChoiceRef.current = null;
         
             while (userChoiceRef.current === null) {
-                await new Promise((resolve) => setTimeout(resolve, 250));
+                await new Promise((resolve) => setTimeout(resolve, 100));
             }
         
             const chosenAlbum = userChoiceRef.current;
@@ -90,7 +90,9 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
       
 
     const handleClose = () => {
-        setAlbums(sortedArr);
+        if (sortedArr.length === albums.length) {
+            setAlbums(sortedArr);
+        }   
         onClose();
     };
 
