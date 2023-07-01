@@ -13,6 +13,7 @@ function Ranker(props) {
     const postRoute = props.postRoute
     const [albums, setAlbums] = useState([]);
     const [openSorter, setOpenSorter] = useState(true);
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
       fetchRankings();
@@ -26,6 +27,7 @@ function Ranker(props) {
         if (response.ok) {
           const rankings = await response.json();
           setAlbums(rankings);
+          setLoaded(true);
         } else {
           console.error('Error fetching rankings:', response.status);
         }
@@ -88,7 +90,7 @@ function Ranker(props) {
                 </SortableContext>
                 <SubmitButton text="Save Rankings" disabled={false} onClick={handleSave}/>
                 <button className='btn btn-outline-primary submitButton' onClick={() => setOpenSorter(true)}>Open Sorter</button>
-                <SorterPopUp open={openSorter} onClose={() => setOpenSorter(false)} albums={albums} setAlbums={setAlbums}/>
+                <SorterPopUp open={openSorter} onClose={() => setOpenSorter(false)} albums={albums} setAlbums={setAlbums} loaded={loaded}/>
                 <SubmitButton className="custom-padding" text="Return to Dashboard" disabled={false} onClick={event => window.location.href='/dashboard'}/>
                 
             </Container>

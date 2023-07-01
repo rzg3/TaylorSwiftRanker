@@ -117,21 +117,20 @@ class App extends React.Component{
                     </Container>
                   } 
                 />
+                <Route 
+                  path="/globalrankings" 
+                  element={
+                    <Container className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '100vh', width: '100%', maxWidth: '10000px' }}>
+                      <Register /> 
+                    </Container>
+                  } 
+                />
                 <Route path="/albums" element={UserStore.isLoggedIn || UserStore.isDevelopment ? <Ranker getRoute="/getRankings" postRoute="saveRankings"/>  : <Navigate to="/" replace={true} />} />
               </Routes>
             </Router>
           </div>
         );
         
-      
-      return (
-        <div className="app">
-          <div className="container">
-           <LoginForm />
-           <SubmitButton text="Register New Account" disabled={false} onClick={event => window.location.href='/register'}/>
-          </div>
-      </div>
-      );
     }
 
 

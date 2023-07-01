@@ -27,11 +27,12 @@ const OVERLAY_STYLES = {
 
 export const stateContext = React.createContext({})
 
-export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
+export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded }) {
     const [leftChoice, setLeftChoice] = useState(null);
     const [rightChoice, setRightChoice] = useState(null);
     const userChoiceRef = useRef(null);
     const [sortedArr, setSortedArr] = useState([]);
+    const [sortingComplete, setSortingComplete] = useState(false);
 
     const merge = async (left, right) => {
         const merged = [];
@@ -75,24 +76,31 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
     };
       
     useEffect(() => {
-        let isSortingCompleted = false;
-    
+        
         const sortAlbums = async () => {
-            if (open && !isSortingCompleted) {
+            if (open && !sortingComplete) {
             const sortedAlbums = await mergeSort(albums);
-            setSortedArr(sortedAlbums);
-            isSortingCompleted = true;
+            if (sortedAlbums.length === albums.length) {
+                setSortedArr(sortedAlbums);
+                setSortingComplete(true);
+            } 
             }
         };
-        
+        if (loaded) {
         sortAlbums();
-    }, [open, albums]);
+        }
+    }, [open, albums, sortedArr]);
       
 
+    const handleResort = () => {
+        setSortingComplete(false);
+        setSortedArr([])
+    }
     const handleClose = () => {
         if (sortedArr.length === albums.length) {
             setAlbums(sortedArr);
-        }   
+        }
+        setSortingComplete(false);
         onClose();
     };
 
@@ -108,12 +116,13 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
         <div style={MODAL_STYLES} className='contain2'>
             <div className="contain">
             {leftChoice && rightChoice ? (
-                
+
+                !sortingComplete ? (
 
                 <>
                 <div className="leftContent">
                     <div className="art">
-                    <img className="album_art2" src={`album_art/${leftChoice.album_name}.png`} alt="Album Art" onClick={() => handleUserChoice(leftChoice)}/>
+                    <img className="album_art2 " src={`album_art/${leftChoice.album_name}.png`} alt="Album Art" onClick={() => handleUserChoice(leftChoice)}/>
                     </div>
                     <div className="desc">
                     <div className="display_content2">{leftChoice.album_name}</div>
@@ -143,13 +152,23 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
                     </div>
                 </div>
                 </>
+
+            ): <div>
+                <button className="btn btn-outline-primary submitButton" onClick={handleResort}>
+                Sort Again
+                </button>
+                <button className="btn btn-outline-primary submitButton" onClick={handleClose}>
+                See New Rankings
+                </button>
+            </div>
             ) : (
                 <div class='loading'>Loading...</div>
             )}
             </div>
-            <button className="btn btn-outline-primary submitButton" onClick={handleClose}>
-            Rank Manually
-            </button>
+            {!sortingComplete ? <button className="btn btn-outline-primary submitButton rankButton" onClick={handleClose}>
+                Rank Manually
+            </button> : ''}
+            
         </div>
         </>,
     document.getElementById('portal')
