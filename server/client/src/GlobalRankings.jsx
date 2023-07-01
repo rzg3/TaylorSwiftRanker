@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 
 function GlobalRankings(props) {
 
+    const [albumRankings, setAlbumRankings] = useState([])
+
     useEffect(() => {
         fetchRankings();
       }, []);
@@ -15,8 +17,7 @@ function GlobalRankings(props) {
           });
           if (response.ok) {
             const rankings = await response.json();
-            setAlbums(rankings);
-            setLoaded(true);
+            setAlbumRankings(rankings);
           } else {
             console.error('Error fetching rankings:', response.status);
           }
@@ -28,7 +29,7 @@ function GlobalRankings(props) {
     return (
         <Container className="p-3" style={{"width": "50%"}} align="center">
         <h2>Global Album Rankings</h2>
-        
+        <div class='d-inline-flex p-2 flex-column align-items-center'>{albumRankings.map(album => <div>{album.album_name}</div> )}</div>
         </Container>
     )
 }

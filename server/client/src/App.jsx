@@ -12,6 +12,7 @@ import Register from './Register';
 import { Container, Row, Col } from 'react-bootstrap';
 
 import ProtectedRoute from './ProtectedRoute';
+import GlobalRankings from './GlobalRankings';
 
 class App extends React.Component{
 
@@ -121,7 +122,7 @@ class App extends React.Component{
                   path="/globalrankings" 
                   element={
                     <Container className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '100vh', width: '100%', maxWidth: '10000px' }}>
-                      <Register /> 
+                      <GlobalRankings /> 
                     </Container>
                   } 
                 />

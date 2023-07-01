@@ -245,19 +245,20 @@ class Router {
   getGlobalRankings(app, db) {
     app.get('/getGlobalRankings', (req, res) => {
   
-      const query = 'SELECT a.album_name, a.youtube_link ' +
-        'FROM albums AS a ' +
-        'LEFT JOIN album_ranking AS ar ON a.album_id = ar.album_id AND ar.user_id = ? ' +
-        'ORDER BY COALESCE(ar.rank, a.album_id)';
+      const query = 'SELECT a.album_name, a.youtube_link, ar.album_id, SUM(ar.`rank`)' +
+        'FROM album_ranking AS ar ' +
+        'LEFT JOIN albums AS a ON ar.album_id = a.album_id ' +
+        'GROUP BY ar.album_id ' +
+        'ORDER BY SUM(ar.`rank`)';
   
-      db.query(query, [userId], (error, results) => {
+      db.query(query, (error, results) => {
         if (error) {
           console.error('Error fetching rankings:', error);
           res.status(500).send('Internal Server Error');
         } else {
           const rankings = results.map(row => ({
             album_name: row.album_name,
-            youtube_link: row.youtube_link
+            youtube_link: row.youtube_link,
           }));
           res.json(rankings);
         }
