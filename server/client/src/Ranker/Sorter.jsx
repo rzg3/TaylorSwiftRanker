@@ -12,7 +12,7 @@ const MODAL_STYLES = {
     backgroundColor: '#FFF',
     padding: '50px',
     zIndex: 1000,
-    borderRadius: '1.5vh'
+    borderRadius: '2.5vh'
 }
 
 const OVERLAY_STYLES = {
@@ -96,6 +96,10 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
         onClose();
     };
 
+    const chooseRandom = () => {
+        handleUserChoice([leftChoice, rightChoice][Math.floor(Math.random() * 2)]);
+    }
+
     if (!open) return null;
 
     return ReactDOM.createPortal(
@@ -121,7 +125,9 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
                     </div>
                 </div>
                 <div className="middleContent">
-                   Choose Your Favorite Album
+                    <button className="btn-square-md" onClick={() => chooseRandom()}>
+                        Choose Random
+                    </button>
                 </div>
                 <div className="rightContent">
                     <div className="art">
@@ -141,7 +147,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
                 <div class='loading'>Loading...</div>
             )}
             </div>
-            <button className="btn btn-outline-primary submitButton manualButton" onClick={handleClose}>
+            <button className="btn btn-outline-primary submitButton" onClick={handleClose}>
             Rank Manually
             </button>
         </div>
