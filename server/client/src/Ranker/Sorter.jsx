@@ -11,8 +11,8 @@ const MODAL_STYLES = {
     transform: 'translate(-50%, -50%)',
     backgroundColor: '#FFF',
     padding: '50px',
-    zIndex: 1000
-
+    zIndex: 1000,
+    borderRadius: '1.5vh'
 }
 
 const OVERLAY_STYLES = {
@@ -54,7 +54,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
             }
         }
       
-        console.log([ ...merged, ...left, ...right ]);
+        // console.log([ ...merged, ...left, ...right ]);
         return [ ...merged, ...left, ...right ]
       };
       
@@ -138,7 +138,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums }) {
                 </div>
                 </>
             ) : (
-                <div>Loading...</div>
+                <div class='loading'>Loading...</div>
             )}
             </div>
             <button className="btn btn-outline-primary submitButton manualButton" onClick={handleClose}>

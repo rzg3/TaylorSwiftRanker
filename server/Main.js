@@ -7,7 +7,7 @@ const MySQLStore = require('express-mysql-session')(session);
 const Router = require('./Router');
 const dotenv = require('dotenv').config();
 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'client/dist')));
 app.use(express.json());
 
 console.log('Testing server')
@@ -52,19 +52,19 @@ app.use(session({
 new Router(app, db);
 
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'))
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
 app.get('/dashboard', function(req, res) {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'))
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
 app.get('/register', function(req, res) {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'))
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
 app.get('/albums', function(req, res) {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'))
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
 app.listen(3000);
