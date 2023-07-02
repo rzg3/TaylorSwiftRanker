@@ -12,7 +12,7 @@ import Register from './Register';
 import { Container, Row, Col } from 'react-bootstrap';
 
 import ProtectedRoute from './ProtectedRoute';
-import GlobalRankings from './GlobalRankings';
+import GlobalRankings from './Global Rankings/GlobalRankings';
 
 class App extends React.Component{
 
@@ -102,7 +102,7 @@ class App extends React.Component{
                   path="/dashboard" 
                   element={
                     UserStore.isLoggedIn || UserStore.isDevelopment ? 
-                    <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh;"}}>
+                    <Container className="d-flex align-items-center justify-content-center" style={{ height: "100%", width:'100%'}}>
                       <Dashboard />
                     </Container> : 
                     <Navigate to="/" replace={true} />

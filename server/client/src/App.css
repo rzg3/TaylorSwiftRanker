@@ -1,4 +1,10 @@
-body, html, #root, .app, .container {
+@media (min-width: 40vw) {
+  .container {
+      max-width : 90vw !important; 
+  }
+}
+
+body, html, #root, .app {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -118,6 +124,13 @@ h3 {
     max-height: 100%;
 
   }
+
+  .scrollable {
+    height: 40vh;
+    overflow-y: auto;
+  }
+
+
 
 
 
