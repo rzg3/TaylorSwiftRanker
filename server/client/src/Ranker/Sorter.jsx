@@ -115,6 +115,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded }
         <>
         <div style={OVERLAY_STYLES} />
         <div style={MODAL_STYLES} className='contain2'>
+            <h2 className='custom-margin'>Choose Your Favorite</h2>
             <div className="contain">
             {leftChoice && rightChoice ? (
 

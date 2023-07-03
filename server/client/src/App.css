@@ -130,6 +130,11 @@ h3 {
     overflow-y: auto;
   }
 
+  .search-bar {
+    width: 20vw;
+    height: 30vh;
+  }
+
 
 
 
