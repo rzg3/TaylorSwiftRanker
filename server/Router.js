@@ -11,6 +11,7 @@ class Router {
     this.getGlobalRankings(app,db);
     this.getUsers(app,db);
     this.getUserRankings(app,db);
+    this.checkUser(app,db);
   }
 
   register(app, db) {
@@ -312,6 +313,30 @@ class Router {
           res.status(500).send('Internal Server Error');
         } else {
           res.json(results);
+        }
+      });
+    });
+  }
+
+  checkUser(app,db) {
+    app.get('/checkUser', (req, res) => {
+
+      const username = req.query.username;
+
+      const query = 'SELECT COUNT(username) ' +
+      'FROM user ' +
+      'WHERE username = ?';
+  
+      db.query(query, [`${username}`], (error, results) => {
+        if (error) {
+          console.error('Error fetching rankings:', error);
+          res.status(500).send('Internal Server Error');
+        } 
+        else if (results[0]['COUNT(username)'] === 0){
+          res.json(false);
+        }
+        else {
+          res.json(true);
         }
       });
     });
