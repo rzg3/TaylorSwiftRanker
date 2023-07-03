@@ -127,6 +127,12 @@ class App extends React.Component{
                   } 
                 />
                 <Route path="/albums" element={UserStore.isLoggedIn || UserStore.isDevelopment ? <Ranker getRoute="/getRankings" postRoute="saveRankings"/>  : <Navigate to="/" replace={true} />} />
+
+                <Route 
+                  path="/user:/username" 
+                  element={
+                    UserStore.isLoggedIn ? <UserProfile /> : <Navigate to="/" replace={true} />
+                  }/>
               </Routes>
             </Router>
           </div>

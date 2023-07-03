@@ -3,7 +3,7 @@ import SubmitButton from './SubmitButton';
 import { Navigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import UserStore from './stores/UserStore';
-import UserSearch from './SearchBar/UserSearch';
+import UserSearch from './Search Bar/UserSearch';
 import './App.css'
 
 class Dashboard extends React.Component {

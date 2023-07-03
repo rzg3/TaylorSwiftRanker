@@ -27,10 +27,16 @@ export const SearchBar = ({ setResults }) => {
         fetchData(value)
     }
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+          console.log('Enter key pressed! Do something...');
+        }
+      };
+
     return (
         <div className='input-wrapper'>
             <FaSearch id='search-icon'/>
-            <input placeholder='Search users...' value={input} onChange={(e) => handleChange(e.target.value)}/>
+            <input placeholder='Search users...' value={input} onChange={(e) => handleChange(e.target.value)} onKeyDown={handleKeyDown}/>
         </div>
     )
 }
