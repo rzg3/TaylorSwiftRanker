@@ -34,7 +34,7 @@ function Rankings(props) {
 
     return (
         <Container className="p-2" style={{"width": "100vw"}} align="center">
-        <div className='d-inline-flex flex-column justify-content-between align-content-center flex-wrap m-5' style={{boxSizing: 'border-box', width: '100%'}}>
+        <div className='d-inline-flex flex-column justify-content-between align-content-center flex-wrap m-5' style={{boxSizing: 'border-box', width: 'calc(100% - 6rem)'}}>
         <h2 className='mb-3' style={{boxSizing: 'border-box', width: '100%'}}>{props.display} Rankings</h2>
         <div className='rank-row d-flex flex-column align-items-center mb-5'>
           <h3 className='align-self-start'>Albums</h3>
