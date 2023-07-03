@@ -7,13 +7,16 @@ function UserSearch() {
 
     const [results, setResults] = useState([]);
     
-    const the_toat = [];
+
+
 
     return (
+       
         <div className='search-bar-container'> 
-            <SearchBar setResults={setResults} />
-            <SearchResultsLists results={results} />
-        </div>
+            <SearchBar setResults={setResults}  />
+            <SearchResultsLists results={results}  />
+        </div> 
+      
 
     )
 }

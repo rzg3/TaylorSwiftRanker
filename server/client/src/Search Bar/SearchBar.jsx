@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import './SearchBar.css'
+import { useNavigate } from 'react-router-dom'
 
-export const SearchBar = ({ setResults }) => {
+export const SearchBar = ({ setResults, setUserSearched }) => {
     const [input, setInput] = useState('');
+    const navigate = useNavigate();
 
     const fetchData = (value) => {
         fetch(`/getUsers?username=${encodeURIComponent(value)}`)
@@ -29,7 +31,7 @@ export const SearchBar = ({ setResults }) => {
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
-          console.log('Enter key pressed! Do something...');
+            navigate(`/user/${input}`)
         }
       };
 

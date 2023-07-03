@@ -4,10 +4,12 @@ import { useState, useEffect } from 'react';
 import RankCard from './CardComponent.jsx';
 import './App.css';
 import SubmitButton from './SubmitButton.jsx';
+import { useNavigate } from 'react-router-dom';
 
 function Rankings(props) {
 
     const [albumRankings, setAlbumRankings] = useState([])
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchRankings();
@@ -60,7 +62,7 @@ function Rankings(props) {
             )}
           </div>
         </div>
-        <SubmitButton text="Return" disabled={false} onClick={event => window.location.href='/dashboard'}/>
+        <SubmitButton text="Return" disabled={false} onClick={event => navigate('/dashboard')}/>
         </div>
         </Container>
 
