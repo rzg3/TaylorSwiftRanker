@@ -10,6 +10,7 @@ class Router {
     this.getRankings(app,db);
     this.getGlobalRankings(app,db);
     this.getUsers(app,db);
+    this.getUserRankings(app,db);
   }
 
   register(app, db) {
@@ -290,6 +291,29 @@ class Router {
                 res.json(users);
             }
         });
+    });
+  }
+  
+  getUserRankings(app,db) {
+    app.get('/getUserRankings', (req, res) => {
+
+      const username = req.query.username;
+
+      const query = 'SELECT a.album_name, a.youtube_link ' +
+      'FROM album_ranking AS ar ' +
+      'LEFT JOIN albums AS a ON ar.album_id = a.album_id ' + 
+      'LEFT JOIN user as u ON ar.user_id = u.id ' +
+      'WHERE u.username = ? '+
+      'ORDER BY ar.`rank`';
+  
+      db.query(query, [`${username}`], (error, results) => {
+        if (error) {
+          console.error('Error fetching rankings:', error);
+          res.status(500).send('Internal Server Error');
+        } else {
+          res.json(results);
+        }
+      });
     });
   }
   

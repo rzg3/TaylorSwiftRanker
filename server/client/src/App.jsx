@@ -10,9 +10,8 @@ import Dashboard from './Dashboard';
 import Ranker from './Ranker/Ranker';
 import Register from './Register';
 import { Container, Row, Col } from 'react-bootstrap';
-
-import ProtectedRoute from './ProtectedRoute';
-import GlobalRankings from './Global Rankings/GlobalRankings';
+import Rankings from './Rankings';
+import UserProfile from './UserProfile';
 
 class App extends React.Component{
 
@@ -122,14 +121,14 @@ class App extends React.Component{
                   path="/globalrankings" 
                   element={
                     <Container className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '100vh', width: '100%', maxWidth: '10000px' }}>
-                      <GlobalRankings /> 
+                      <Rankings display='Global' route='/getGlobalRankings'/> 
                     </Container>
                   } 
                 />
                 <Route path="/albums" element={UserStore.isLoggedIn || UserStore.isDevelopment ? <Ranker getRoute="/getRankings" postRoute="saveRankings"/>  : <Navigate to="/" replace={true} />} />
 
                 <Route 
-                  path="/user:/username" 
+                  path="/user/:username" 
                   element={
                     UserStore.isLoggedIn ? <UserProfile /> : <Navigate to="/" replace={true} />
                   }/>

@@ -1,11 +1,11 @@
-import '../App.css';
+import './App.css';
 
 function RankCard(props) {
 
     return (
         <div className='rectangle'>
         <div className="left-content">
-        <img className="album_art" src={`album_art/${props.display}.png`} alt="Album Art" />
+        <img className="album_art" src={`/album_art/${props.display}.png`} alt="Album Art" />
         
         </div>
        
@@ -13,7 +13,7 @@ function RankCard(props) {
             <div className="display_content">{props.rank}. {props.display}</div>
             <div className="youtube_link">
                 <a href={props.youtube_link} target="_blank" rel="noopener noreferrer">
-                    <img className="youtube_logo" src="youtubelogo.png" alt="YouTube Logo" />
+                    <img className="youtube_logo" src="/youtubelogo.png" alt="YouTube Logo" />
                 </a>
             </div>
         </div>
