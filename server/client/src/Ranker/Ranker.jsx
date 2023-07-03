@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import { DndContext, closestCenter } from '@dnd-kit/core';
-import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
 import { useState, useEffect } from 'react';
 import { SortableItem } from './SortableItem';
 import SubmitButton from '../SubmitButton';
@@ -79,19 +79,23 @@ function Ranker(props) {
         >
             
             <Container className="p-3" style={{"width": "50%"}} align="center">
-                <h3>Rank Taylor Swift Albums</h3>
+                <h3 className='m-4'>Rank Taylor Swift Albums</h3>
+                <div className='d-flex justify-content-center flex-wrap'>
                 <SortableContext
                     items={albums}
-                    strategy={verticalListSortingStrategy}
+                    strategy={rectSortingStrategy}
                 >
                     {/* We need components that use the useSortable hook */}
-                    {albums.map(album => 
-                      <SortableItem key={album.album_name} id={album} display={album.album_name} youtube_link={album.youtube_link}/>)}
+                    {albums.map((album, index) => 
+                      <SortableItem key={album.album_name} id={album} display={album.album_name} youtube_link={album.youtube_link} rank={index + 1}/>)}
                 </SortableContext>
-                <SubmitButton text="Save Rankings" disabled={false} onClick={handleSave}/>
-                <button className='btn btn-outline-primary submitButton' onClick={() => setOpenSorter(true)}>Open Sorter</button>
+                </div>
+                <div className='m-3'> 
                 <SorterPopUp open={openSorter} onClose={() => setOpenSorter(false)} albums={albums} setAlbums={setAlbums} loaded={loaded}/>
-                <SubmitButton className="custom-padding" text="Return to Dashboard" disabled={false} onClick={event => window.location.href='/dashboard'}/>
+                <SubmitButton text="Save Rankings" disabled={false} onClick={handleSave}/>
+                <button className='btn btn-outline-primary submitButton' onClick={() => setOpenSorter(true)}>Open Sorter</button> 
+                  <SubmitButton className="custom-padding" text="Return to Dashboard" disabled={false} onClick={event => window.location.href='/dashboard'}/>
+                </div>
                 
             </Container>
         </DndContext>

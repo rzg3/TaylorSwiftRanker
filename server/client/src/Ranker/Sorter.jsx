@@ -22,6 +22,7 @@ const OVERLAY_STYLES = {
     right: 0,
     bottom: 0,
     backgroundColor: 'rgba(0,0,0, .7)',
+    backdropFilter: 'blur(.3vh)',
     zIndex: 1000
 }
 

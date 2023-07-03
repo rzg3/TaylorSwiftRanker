@@ -9,6 +9,7 @@ class Router {
     this.saveRankings(app,db);
     this.getRankings(app,db);
     this.getGlobalRankings(app,db);
+    this.getUsers(app,db);
   }
 
   register(app, db) {
@@ -263,6 +264,31 @@ class Router {
           res.json(rankings);
         }
       });
+    });
+  }
+
+  getUsers(app, db) {
+    app.get('/getUsers', (req, res) => {
+        const username = req.query.username;
+        if (username.length === 0) {
+          res.json([])
+          return
+        }
+
+        const query = 'SELECT user.username ' +
+            'FROM user ' +
+            'WHERE user.username LIKE ? ' +
+            'LIMIT 10';
+
+        db.query(query, [`%${username}%`], (error, results) => {
+            if (error) {
+                console.error('Error fetching rankings:', error);
+                res.status(500).send('Internal Server Error');
+            } else {
+                const users = results;
+                res.json(users);
+            }
+        });
     });
   }
   

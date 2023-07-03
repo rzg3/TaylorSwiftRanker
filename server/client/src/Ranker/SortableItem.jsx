@@ -27,7 +27,7 @@ export function SortableItem(props){
             </div>
            
             <div className="right-content">
-                <div className="display_content">{props.display}</div>
+                <div className="display_content">{props.rank}. {props.display}</div>
                 <div className="youtube_link">
                     <a href={props.youtube_link} target="_blank" rel="noopener noreferrer">
                         <img className="youtube_logo" src="youtubelogo.png" alt="YouTube Logo" />
