@@ -278,6 +278,7 @@ class Router {
         const query = 'SELECT user.username ' +
             'FROM user ' +
             'WHERE user.username LIKE ? ' +
+            'ORDER BY LENGTH(user.username) ' +
             'LIMIT 10';
 
         db.query(query, [`%${username}%`], (error, results) => {
