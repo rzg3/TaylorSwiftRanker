@@ -14,6 +14,8 @@ class Router {
     this.checkUser(app,db);
     this.getFollowing(app,db);
     this.insertFollow(app,db);
+    this.checkFollowing(app,db);
+    this.removeFollow(app,db);
   }
 
   register(app, db) {
@@ -377,13 +379,56 @@ class Router {
 
       const query = 'INSERT INTO following (user_id, following_id) ' +
                      `VALUES (?, (${subquery}))`;
-    
-                          
+                
+      db.query(query, [req.session.userID, username], (error, results) => {
+        if (error) {
+          console.error('Error fetching rankings:', error);
+          res.status(500).send('Internal Server Error');
+        } else {
+          res.sendStatus(200);
+        }
+      });
+    });
+  }
+
+  removeFollow(app,db) {
+    app.get('/removeFollow', (req, res) => {
+
+      const username = req.query.username;
+
+      const query = 'DELETE FROM following WHERE user_id = ? AND following_id = (SELECT id FROM user WHERE username = ?)';
+                
+      db.query(query, [req.session.userID, username], (error, results) => {
+        if (error) {
+          console.error('Error fetching rankings:', error);
+          res.status(500).send('Internal Server Error');
+        } else {
+          res.sendStatus(200);
+        }
+      });
+    });
+  }
+
+  checkFollowing(app,db) {
+    app.get('/checkFollowing', (req, res) => {
+
+      const username = req.query.username;
+
+      const query = 'SELECT COUNT(user_id) ' +
+                    'FROM following ' + 
+                    'WHERE user_id = ? AND following_id = (SELECT id FROM user WHERE username = ?)';
+                
       db.query(query, [req.session.userID, username], (error, results) => {
         if (error) {
           console.error('Error fetching rankings:', error);
           res.status(500).send('Internal Server Error');
         } 
+        else if (results[0]['COUNT(user_id)'] > 0) {
+          res.json(true)
+        }
+        else {
+          res.json(false)
+        }
       });
     });
   }

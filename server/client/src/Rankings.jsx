@@ -37,7 +37,11 @@ function Rankings(props) {
         <div className='d-inline-flex flex-column justify-content-between align-content-center flex-wrap m-5' style={{boxSizing: 'border-box', width: 'calc(100% - 6rem)'}}>
         <div className='mb-3' style={{boxSizing: 'border-box', width: '100%'}}>
           <h2>{props.display} Rankings</h2>
-          {props.followButton ? (<SubmitButton text="Follow" disabled={false} onClick={event => props.insertFollow()}/>) : ''}
+          {props.followButton ? (
+            <button className="btn btn-outline-primary submitButton" onClick={ () => props.followUnfollow()}>
+            {props.btnText}
+            </button>
+          ) : ''}
         </div>
         <div className='rank-row d-flex flex-column align-items-center mb-5'>
           <h3 className='align-self-start'>Albums</h3>

@@ -10,12 +10,24 @@ function UserProfile() {
     let params = useParams();
     const navigate = useNavigate();
 
-    const [userExists, setUserExists] = useState(null)
-
-    useEffect(() => {
-        checkUser();
-      }, []);
+    const [userExists, setUserExists] = useState(null);
+    const [following, setFollowing] = useState('');
     
+    const checkFollowing = async () => {
+        try {
+            const response = await fetch('/checkFollowing?username=' + params.username, {
+            method: 'GET',
+            });
+            if (response.ok) {
+                const follows = await response.json()
+                setFollowing(follows);
+            } else {
+                console.error('Error fetching following:', response.status);
+            }
+        } catch (error) {
+            console.error('Error fetching following:', error);
+        }
+    };
 
     const checkUser = async () => {
         try {
@@ -33,13 +45,38 @@ function UserProfile() {
             }
     };
 
+    useEffect(() => {
+        checkUser();
+      }, []);
+    
+    useEffect(() => {
+        checkFollowing();
+    }, [following]);
+
     const insertFollow = async () => {
         try {
             const response = await fetch('/insertFollow?username=' + params.username, {
                 method: 'GET',
             });
             if (response.ok) {
-                console.log('successfully followed')
+                setFollowing(true)
+                console.log(following)
+            } else {
+                console.error('Error fetching rankings:', response.status);
+            }
+            } catch (error) {
+            console.error('Error fetching rankings:', error);
+            }
+    };
+
+    const removeFollow = async () => {
+        try {
+            const response = await fetch('/removeFollow?username=' + params.username, {
+                method: 'GET',
+            });
+            if (response.ok) {
+                setFollowing(false)
+                console.log(following)
             } else {
                 console.error('Error fetching rankings:', response.status);
             }
@@ -49,26 +86,56 @@ function UserProfile() {
     };
 
 
-  return (
-    <>
-        {
-            userExists 
-                ?
-                    <Rankings display={params.username + "'s"} route='/getUserRankings' user={params.username} followButton={true} insertFollow={insertFollow}/>
-                :
-                    <div className='app d-flex flex-column align-items-center justify-content-center'>
-                        <h2>User Doesn't Exist</h2>
-                        <SubmitButton
-                            text='Return to Dashboard'
-                            disabled={false}
-                            onClick={ () => navigate('/dashboard')}
-                        />
-                    </div>
+    if (userExists === null || following === null) {
+        return null;
+      }
 
-        }
-    </>
-    
-  )
+    return (
+        <>
+            {
+                userExists 
+                    ?
+                        ( 
+                            following
+                                ?
+                                    (
+                                        <Rankings 
+                                            display={params.username + "'s"} 
+                                            route='/getUserRankings' 
+                                            user={params.username} 
+                                            followButton={true} 
+                                            followUnfollow={removeFollow} 
+                                            btnText={'Unfollow'}
+                                            setFollowing={setFollowing}
+                                        />
+                                    )
+                                :
+                                    (
+                                        <Rankings 
+                                            display={params.username + "'s"} 
+                                            route='/getUserRankings' 
+                                            user={params.username} 
+                                            followButton={true} 
+                                            followUnfollow={insertFollow} 
+                                            btnText={'Follow'}
+                                            setFollowing={setFollowing}
+                                        />
+                                    )
+                        )
+                    :
+                        <div className='app d-flex flex-column align-items-center justify-content-center'>
+                            <h2>User Doesn't Exist</h2>
+                            <SubmitButton
+                                text='Return to Dashboard'
+                                disabled={false}
+                                onClick={ () => navigate('/dashboard')}
+                            />
+                        </div>
+
+            }
+        </>
+        
+    )
 }
 
 export default UserProfile
