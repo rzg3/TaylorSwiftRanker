@@ -18,19 +18,34 @@ function UserProfile() {
     
 
     const checkUser = async () => {
-    try {
-        const response = await fetch('/checkUser?username=' + params.username, {
-            method: 'GET',
-        });
-        if (response.ok) {
-            const exists = await response.json();
-            setUserExists(exists);
-        } else {
-            console.error('Error fetching rankings:', response.status);
-        }
-        } catch (error) {
-        console.error('Error fetching rankings:', error);
-        }
+        try {
+            const response = await fetch('/checkUser?username=' + params.username, {
+                method: 'GET',
+            });
+            if (response.ok) {
+                const exists = await response.json();
+                setUserExists(exists);
+            } else {
+                console.error('Error fetching rankings:', response.status);
+            }
+            } catch (error) {
+            console.error('Error fetching rankings:', error);
+            }
+    };
+
+    const insertFollow = async () => {
+        try {
+            const response = await fetch('/insertFollow?username=' + params.username, {
+                method: 'GET',
+            });
+            if (response.ok) {
+                console.log('successfully followed')
+            } else {
+                console.error('Error fetching rankings:', response.status);
+            }
+            } catch (error) {
+            console.error('Error fetching rankings:', error);
+            }
     };
 
 
@@ -39,7 +54,7 @@ function UserProfile() {
         {
             userExists 
                 ?
-                    <Rankings display={params.username + "'s"} route='/getUserRankings' user={params.username}/>
+                    <Rankings display={params.username + "'s"} route='/getUserRankings' user={params.username} followButton={true} insertFollow={insertFollow}/>
                 :
                     <div className='app d-flex flex-column align-items-center justify-content-center'>
                         <h2>User Doesn't Exist</h2>

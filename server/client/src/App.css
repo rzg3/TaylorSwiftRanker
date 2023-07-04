@@ -9,7 +9,7 @@ body, html, #root, .app {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #d6e9ff;
+    background-color: #FAF9F6;
 }
 
 h3 {
@@ -32,7 +32,7 @@ h3 {
 .input {
     box-sizing: border-box;
     outline: none;
-    border: solid 2px #c6b8e2;
+    border: solid 2px #923c81;
     border-radius: 4px;
     color: #292929;
     width: 100%;
@@ -55,22 +55,22 @@ h3 {
     color: #565656;
     padding: 12px;
     font-size: 14px;
-    font-weight: bold !important;
-    border: solid 2px #c6b8e2 !important;
-    color: #c6b8e2 !important;
+    /* font-weight: bold !important; */
+    border: solid 2px #923c81 !important;
+    color: #923c81 !important;
     border-radius: 4px;
     background: #fff;
     cursor: pointer;
 }
 
 .btn:hover {
-  background-color: #c6b8e2 !important;
-  color: #d6e9ff !important;
+  background-color: #923c81 !important;
+  color: #FAF9F6 !important;
 }
 
 .btn:active {
-  background-color: #c6b8e2 !important;
-  color: #d6e9ff !important;
+  background-color: #923c81 !important;
+  color: #FAF9F6 !important;
 }
 
 

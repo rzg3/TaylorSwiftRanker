@@ -76,7 +76,7 @@
     text-decoration: none;
     outline: none;
     color: #fff;
-    background-color: #c6b8e2;
+    background-color: #923c81;
     border: none;
     border-radius: 1vh;
     width: 10vh;
@@ -86,12 +86,12 @@
   }
   
   .btn-square-md:hover {
-    background-color: #a486e0;
+    background-color: #8b1874;
     transition: all .1s ease-in;
 }
   
   .btn-square-md:active {
-    background-color: #a486e0;
+    background-color: #8b1874;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
   }

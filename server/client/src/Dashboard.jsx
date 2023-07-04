@@ -6,8 +6,11 @@ import UserStore from './stores/UserStore';
 import UserSearch from './Search Bar/UserSearch';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
+import Following from './Following';
 
 class Dashboard extends React.Component {
+
+
   handleLogout = async () => {
     try {
       let res = await fetch('/logout', {
@@ -35,7 +38,8 @@ class Dashboard extends React.Component {
     const { username } = this.props;
 
     return (
-        <div className='app d-flex'> 
+        <div className='app d-flex just-content-around'> 
+        <div className='centered' style={{marginLeft: '3vw', width: '50%'}}>Favorites</div>
         <div className="centered align-self-center">      
           <h3>Welcome {username}</h3>
           <div className='search-bar'>
@@ -44,6 +48,9 @@ class Dashboard extends React.Component {
           <SubmitButton text="Album Ranker" disabled={false} onClick={event => window.location.href='/albums'}/>
           <SubmitButton text="Global Rankings" disabled={false} onClick={event => window.location.href='/globalrankings'}/>
           <SubmitButton text="Log out" disabled={false} onClick={this.handleLogout} />
+        </div>
+        <div className='centered' style={{marginRight: '3vw', width: '50%'}}>
+          <Following username={UserStore.username}/>
         </div>
         </div>
     );

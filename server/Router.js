@@ -12,6 +12,8 @@ class Router {
     this.getUsers(app,db);
     this.getUserRankings(app,db);
     this.checkUser(app,db);
+    this.getFollowing(app,db);
+    this.insertFollow(app,db);
   }
 
   register(app, db) {
@@ -338,6 +340,50 @@ class Router {
         else {
           res.json(true);
         }
+      });
+    });
+  }
+
+  getFollowing(app,db) {
+    app.get('/getFollowing', (req, res) => {
+
+      const username = req.query.username;
+
+      const subquery = 'SELECT id FROM user WHERE username = ?';
+
+      const query = 'SELECT user.username ' +
+                    'FROM following ' +
+                    'LEFT JOIN user ON following.following_id = user.id ' +
+                    `WHERE following.user_id = (${subquery})`;
+  
+      db.query(query, [`${username}`], (error, results) => {
+        if (error) {
+          console.error('Error fetching rankings:', error);
+          res.status(500).send('Internal Server Error');
+        } 
+        else {
+          res.json(results);
+        }
+      });
+    });
+  }
+
+  insertFollow(app,db) {
+    app.get('/insertFollow', (req, res) => {
+
+      const username = req.query.username;
+
+      const subquery = 'SELECT id FROM user WHERE username = ?';
+
+      const query = 'INSERT INTO following (user_id, following_id) ' +
+                     `VALUES (?, (${subquery}))`;
+    
+                          
+      db.query(query, [req.session.userID, username], (error, results) => {
+        if (error) {
+          console.error('Error fetching rankings:', error);
+          res.status(500).send('Internal Server Error');
+        } 
       });
     });
   }
