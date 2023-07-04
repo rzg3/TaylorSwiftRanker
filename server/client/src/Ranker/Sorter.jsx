@@ -156,10 +156,10 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded }
                 </>
 
             ): <div>
-                <button className="btn btn-outline-primary submitButton" onClick={handleResort}>
+                <button id='btn2' className="btn btn-outline-primary submitButton" onClick={handleResort}>
                 Sort Again
                 </button>
-                <button className="btn btn-outline-primary submitButton" onClick={handleClose}>
+                <button id='btn2' className="btn btn-outline-primary submitButton" onClick={handleClose}>
                 See New Rankings
                 </button>
             </div>
@@ -167,7 +167,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded }
                 <div class='loading'>Loading...</div>
             )}
             </div>
-            {!sortingComplete ? <button className="btn btn-outline-primary submitButton rankButton" onClick={handleClose}>
+            {!sortingComplete ? <button id='btn2' className="btn btn-outline-primary submitButton rankButton"  onClick={handleClose}>
                 Rank Manually
             </button> : ''}
             

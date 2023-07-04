@@ -101,9 +101,9 @@ class App extends React.Component{
                   path="/dashboard" 
                   element={
                     UserStore.isLoggedIn || UserStore.isDevelopment ? 
-                    <Container className="d-flex align-items-center justify-content-center" style={{ height: "100%", width:'100%'}}>
+                    
                       <Dashboard username={UserStore.username}/>
-                    </Container> : 
+                   : 
                     <Navigate to="/" replace={true} />
 
                   } 

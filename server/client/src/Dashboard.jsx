@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import UserStore from './stores/UserStore';
 import UserSearch from './Search Bar/UserSearch';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
 class Dashboard extends React.Component {
@@ -34,8 +35,8 @@ class Dashboard extends React.Component {
     const { username } = this.props;
 
     return (
-
-        <div className="centered">
+        <div className='app d-flex'> 
+        <div className="centered align-self-center">      
           <h3>Welcome {username}</h3>
           <div className='search-bar'>
             <UserSearch />
@@ -43,6 +44,7 @@ class Dashboard extends React.Component {
           <SubmitButton text="Album Ranker" disabled={false} onClick={event => window.location.href='/albums'}/>
           <SubmitButton text="Global Rankings" disabled={false} onClick={event => window.location.href='/globalrankings'}/>
           <SubmitButton text="Log out" disabled={false} onClick={this.handleLogout} />
+        </div>
         </div>
     );
   }
