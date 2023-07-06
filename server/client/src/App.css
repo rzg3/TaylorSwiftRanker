@@ -133,10 +133,11 @@ h3 {
     padding: 0.1vh 0.2vh;
 }
   
-  .display_content {
-    font-weight: bold;
-    margin-bottom: 10px; /* Adjust the margin as needed */
-  }
+.display_content {
+  font-weight: bold;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
   
 
 

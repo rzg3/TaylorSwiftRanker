@@ -75,5 +75,9 @@ app.get('/user/:username', function(req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
+app.get('/taylorswift', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+});
+
 
 app.listen(3000);

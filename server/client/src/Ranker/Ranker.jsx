@@ -38,7 +38,8 @@ function Ranker(props) {
 
     const handleSave = async () => {
       try {
-        const albumNames = albums.map(album => album.album_name); // Extract album names
+        const propertyToAccess = props.isAlbum ? 'album_name' : 'song_name';
+        const albumNames = albums.map(album => album[propertyToAccess]);
         const response = await fetch(postRoute, {
           method: 'POST',
           headers: {
@@ -79,7 +80,7 @@ function Ranker(props) {
         >
             
             <Container className="p-3" style={{"width": "50%"}} align="center">
-                <h3 className='m-4'>Rank Taylor Swift Albums</h3>
+                <h3 className='m-4'>Rank Taylor Swift's {props.rankDisplay}</h3>
                 <div className='d-flex justify-content-center flex-wrap'>
                 <SortableContext
                     items={albums}
@@ -87,11 +88,18 @@ function Ranker(props) {
                 >
                     {/* We need components that use the useSortable hook */}
                     {albums.map((album, index) => 
-                      <SortableItem key={album.album_name} id={album} display={album.album_name} youtube_link={album.youtube_link} rank={index + 1}/>)}
+                      <SortableItem
+                      key={props.isAlbum ? album.album_name : album.song_name}
+                      id={album}
+                      display={props.isAlbum ? album.album_name : album.song_name}
+                      youtube_link={album.youtube_link}
+                      rank={index + 1}
+                      />
+                    )}
                 </SortableContext>
                 </div>
                 <div className='m-3'> 
-                <SorterPopUp open={openSorter} onClose={() => setOpenSorter(false)} albums={albums} setAlbums={setAlbums} loaded={loaded}/>
+                <SorterPopUp open={openSorter} onClose={() => setOpenSorter(false)} albums={albums} setAlbums={setAlbums} loaded={loaded} isAlbum={props.isAlbum}/>
                 <SubmitButton text="Save Rankings" disabled={false} onClick={handleSave}/>
                 <button className='btn btn-outline-primary submitButton' onClick={() => setOpenSorter(true)}>Open Sorter</button> 
                   <SubmitButton className="custom-padding" text="Return to Dashboard" disabled={false} onClick={event => window.location.href='/dashboard'}/>

@@ -125,7 +125,37 @@ class App extends React.Component{
                     </Container>
                   } 
                 />
-                <Route path="/albums" element={UserStore.isLoggedIn || UserStore.isDevelopment ? <Ranker getRoute="/getRankings" postRoute="saveRankings"/>  : <Navigate to="/" replace={true} />} />
+                <Route 
+                  path="/albums" 
+                  element={
+                    UserStore.isLoggedIn || UserStore.isDevelopment 
+                    ? 
+                      <Ranker 
+                        getRoute="/getRankings" 
+                        postRoute="saveRankings"
+                        isAlbum={true}
+                        rankDisplay='Albums'
+                      />  
+                    : 
+                      <Navigate to="/" replace={true} />
+                  } 
+                />
+                
+                <Route 
+                  path="/taylorswift" 
+                  element={
+                    UserStore.isLoggedIn || UserStore.isDevelopment 
+                    ? 
+                      <Ranker 
+                        getRoute="/getAlbumSongRankings?album_id=1" 
+                        postRoute="saveAlbumSongRankings"
+                        isAlbum={false}
+                        rankDisplay='Taylor Swift Album'
+                      /> 
+                    : 
+                      <Navigate to="/" replace={true} />
+                  } 
+                />
 
                 <Route 
                   path="/user/:username" 

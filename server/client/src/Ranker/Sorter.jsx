@@ -28,7 +28,7 @@ const OVERLAY_STYLES = {
 
 export const stateContext = React.createContext({})
 
-export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded }) {
+export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, isAlbum }) {
     const [leftChoice, setLeftChoice] = useState(null);
     const [rightChoice, setRightChoice] = useState(null);
     const userChoiceRef = useRef(null);
@@ -124,10 +124,16 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded }
                 <>
                 <div className="leftContent">
                     <div className="art">
-                    <img className="album_art2 " src={`album_art/${leftChoice.album_name}.png`} alt="Album Art" onClick={() => handleUserChoice(leftChoice)}/>
+                    <img 
+                        className="album_art2" 
+                        src={`album_art/${isAlbum ? leftChoice.album_name : leftChoice.song_name}.png`} 
+                        alt="Album Art" 
+                        onClick={() => handleUserChoice(leftChoice)} 
+                    />
                     </div>
                     <div className="desc">
-                    <div className="display_content2">{leftChoice.album_name}</div>
+                    <div className="display_content2">{isAlbum ? leftChoice.album_name : leftChoice.song_name}</div>
+
                     <div className="youtube_link2">
                         <a href={leftChoice.youtube_link} target="_blank" rel="noopener noreferrer">
                         <img className="youtube_logo2" src="youtubelogo.png" alt="YouTube Logo" />
@@ -142,10 +148,15 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded }
                 </div>
                 <div className="rightContent">
                     <div className="art">
-                    <img className="album_art2" src={`album_art/${rightChoice.album_name}.png`} alt="Album Art" onClick={() => handleUserChoice(rightChoice)}/>
+                    <img 
+                        className="album_art2" 
+                        src={`album_art/${isAlbum ? rightChoice.album_name : rightChoice.song_name}.png`} 
+                        alt="Album Art" 
+                        onClick={() => handleUserChoice(rightChoice)} 
+                    />
                     </div>
                     <div className="desc">
-                    <div className="display_content2">{rightChoice.album_name}</div>
+                    <div className="display_content2">{isAlbum ? rightChoice.album_name : rightChoice.song_name}</div>
                     <div className="youtube_link2">
                         <a href={rightChoice.youtube_link} target="_blank" rel="noopener noreferrer">
                         <img className="youtube_logo2" src="youtubelogo.png" alt="YouTube Logo" />

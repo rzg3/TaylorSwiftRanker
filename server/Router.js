@@ -16,6 +16,8 @@ class Router {
     this.insertFollow(app,db);
     this.checkFollowing(app,db);
     this.removeFollow(app,db);
+    this.getAlbumSongRankings(app,db);
+    this.saveAlbumSongRankings(app, db);
   }
 
   register(app, db) {
@@ -241,6 +243,79 @@ class Router {
         } else {
           const rankings = results.map(row => ({
             album_name: row.album_name,
+            youtube_link: row.youtube_link
+          }));
+          res.json(rankings);
+        }
+      });
+    });
+  }
+
+  saveAlbumSongRankings(app, db) {
+    app.post('/saveAlbumSongRankings', (req, res) => {
+      const rankings = req.body.rankings;
+  
+      // Update the rankings in the database
+      const userId = req.session.userID;
+      rankings.forEach(async (song, index) => {
+ 
+        const songQuery = 'SELECT song_id FROM songs WHERE song_name = ?';
+        const [rows] = await db.promise().query(songQuery, [song]);
+  
+        if (rows.length > 0) {
+          const songId = rows[0].song_id;
+
+          const checkQuery = 'SELECT COUNT(*) as count FROM song_ranking WHERE song_id = ? AND user_id = ? AND album_song_rank IS NOT NULL';
+          const [checkRows] = await db.promise().query(checkQuery, [songId, userId]);
+  
+          if (checkRows[0].count > 0) {
+ 
+            const updateQuery = 'UPDATE song_ranking SET album_song_rank = ? WHERE song_id = ? AND user_id = ?';
+            db.query(updateQuery, [index + 1, songId, userId], (error, result) => {
+              if (error) {
+                console.error('Error updating album song ranking:', error);
+                res.status(500).send('Internal Server Error');
+              }
+            });
+          } else {
+
+            const insertQuery = 'INSERT INTO song_ranking (user_id, song_id, album_song_rank) VALUES (?, ?, ?)';
+            db.query(insertQuery, [userId, songId, index + 1], (error, result) => {
+              if (error) {
+                console.error('Error inserting album song ranking:', error);
+                return res.status(500).send('Internal Server Error');
+              }
+            });
+          }
+        } else {
+          console.error(`Song not found: ${song}`);
+        }
+      });
+  
+      // Send a success response
+      return res.sendStatus(200);
+    });
+  }
+
+  getAlbumSongRankings(app, db) {
+    app.get('/getAlbumSongRankings', (req, res) => {
+      const userId = req.session.userID;
+      
+      const albumId = req.query.album_id;
+
+      const query = 'SELECT s.song_name, s.youtube_link ' +
+        'FROM songs AS s ' +
+        'LEFT JOIN song_ranking AS sr ON s.song_id = sr.song_id AND sr.user_id = ? ' +
+        'WHERE s.album_id = ? ' +
+        'ORDER BY COALESCE(sr.album_song_rank, s.song_id)';
+  
+      db.query(query, [userId, albumId], (error, results) => {
+        if (error) {
+          console.error('Error fetching rankings:', error);
+          res.status(500).send('Internal Server Error');
+        } else {
+          const rankings = results.map(row => ({
+            song_name: row.song_name,
             youtube_link: row.youtube_link
           }));
           res.json(rankings);
