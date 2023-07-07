@@ -1,9 +1,9 @@
 import React from 'react';
 import '../App.css'
 
-function TextResizeComponent( {text}) {
+function TextResizeComponent( {text, maxSize}) {
     let originFontSize = 1.85;
-    let maxDisplayCharInLine = 30; 
+    let maxDisplayCharInLine = maxSize; 
     let scaleFactor = 0.5;
     let fontSize = Math.min(originFontSize, originFontSize * Math.pow(Math.log((maxDisplayCharInLine / text.length) + 1), scaleFactor));
 

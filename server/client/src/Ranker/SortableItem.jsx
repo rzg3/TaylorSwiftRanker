@@ -24,11 +24,11 @@ export function SortableItem(props){
     return (
         <div className='rectangle' ref={setNodeRef} style={style} {...attributes} {...listeners}>
             <div className="left-content">
-            <img className="album_art" src={`album_art/${props.display}.png`} alt="Album Art" />
+            <img className="album_art" src={`album_art/${props.cover_art}.png`} alt="Album Art" />
             </div>
            
             <div className="right-content">
-                <TextResizeComponent text={`${props.rank}. ${props.display}`}/>
+                <TextResizeComponent text={`${props.rank}. ${props.display}`} maxSize={30}/>
                 <div className="youtube_link">
                     <a href={props.youtube_link} target="_blank" rel="noopener noreferrer">
                         <img className="youtube_logo" src="youtubelogo.png" alt="YouTube Logo" />

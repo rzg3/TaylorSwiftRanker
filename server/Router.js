@@ -303,7 +303,7 @@ class Router {
       
       const albumId = req.query.album_id;
 
-      const query = 'SELECT s.song_name, s.youtube_link ' +
+      const query = 'SELECT s.song_name, s.youtube_link, s.cover_art ' +
         'FROM songs AS s ' +
         'LEFT JOIN song_ranking AS sr ON s.song_id = sr.song_id AND sr.user_id = ? ' +
         'WHERE s.album_id = ? ' +
@@ -316,7 +316,8 @@ class Router {
         } else {
           const rankings = results.map(row => ({
             song_name: row.song_name,
-            youtube_link: row.youtube_link
+            youtube_link: row.youtube_link,
+            cover_art: row.cover_art
           }));
           res.json(rankings);
         }

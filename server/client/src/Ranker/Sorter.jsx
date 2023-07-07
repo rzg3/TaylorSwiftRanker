@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import SubmitButton from '../SubmitButton';
 import "./Sorter.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import TextResizeComponent from './TextResizeComponent';
 
 const MODAL_STYLES = {
     position: 'fixed',
@@ -126,13 +127,15 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
                     <div className="art">
                     <img 
                         className="album_art2" 
-                        src={`album_art/${isAlbum ? leftChoice.album_name : leftChoice.song_name}.png`} 
+                        src={`album_art/${isAlbum ? leftChoice.album_name : leftChoice.cover_art}.png`} 
                         alt="Album Art" 
                         onClick={() => handleUserChoice(leftChoice)} 
                     />
                     </div>
                     <div className="desc">
-                    <div className="display_content2">{isAlbum ? leftChoice.album_name : leftChoice.song_name}</div>
+                    <div className="display_content2">{
+                        isAlbum ? <TextResizeComponent text={leftChoice.album_name} maxSize={50} /> : <TextResizeComponent text={leftChoice.song_name} maxSize={50}/>
+                    }</div>
 
                     <div className="youtube_link2">
                         <a href={leftChoice.youtube_link} target="_blank" rel="noopener noreferrer">
@@ -150,13 +153,15 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
                     <div className="art">
                     <img 
                         className="album_art2" 
-                        src={`album_art/${isAlbum ? rightChoice.album_name : rightChoice.song_name}.png`} 
+                        src={`album_art/${isAlbum ? rightChoice.album_name : rightChoice.cover_art}.png`} 
                         alt="Album Art" 
                         onClick={() => handleUserChoice(rightChoice)} 
                     />
                     </div>
                     <div className="desc">
-                    <div className="display_content2">{isAlbum ? rightChoice.album_name : rightChoice.song_name}</div>
+                    <div className="display_content2">{
+                        isAlbum ? <TextResizeComponent text={rightChoice.album_name} maxSize={50} /> : <TextResizeComponent text={rightChoice.song_name} maxSize={50}/>
+                    }</div>
                     <div className="youtube_link2">
                         <a href={rightChoice.youtube_link} target="_blank" rel="noopener noreferrer">
                         <img className="youtube_logo2" src="youtubelogo.png" alt="YouTube Logo" />
