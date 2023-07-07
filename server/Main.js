@@ -79,5 +79,40 @@ app.get('/taylorswift', function(req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
+app.get('/fearless', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+});
+
+app.get('/speaknow', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+});
+
+app.get('/red', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+});
+
+app.get('/1989', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+});
+
+app.get('/reputation', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+});
+
+app.get('/lover', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+});
+
+app.get('/folklore', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+});
+
+app.get('/evermore', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+});
+
+app.get('/midnights', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+});
 
 app.listen(3000);

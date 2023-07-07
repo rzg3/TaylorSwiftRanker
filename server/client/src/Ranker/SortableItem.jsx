@@ -2,6 +2,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import '../App.css';
+import TextResizeComponent from './TextResizeComponent';
 
 export function SortableItem(props){
     // props.id
@@ -27,7 +28,7 @@ export function SortableItem(props){
             </div>
            
             <div className="right-content">
-                <div className="display_content">{props.rank}. {props.display}</div>
+                <TextResizeComponent text={`${props.rank}. ${props.display}`}/>
                 <div className="youtube_link">
                     <a href={props.youtube_link} target="_blank" rel="noopener noreferrer">
                         <img className="youtube_logo" src="youtubelogo.png" alt="YouTube Logo" />

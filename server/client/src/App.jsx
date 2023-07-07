@@ -158,6 +158,145 @@ class App extends React.Component{
                 />
 
                 <Route 
+                  path="/fearless" 
+                  element={
+                    UserStore.isLoggedIn || UserStore.isDevelopment 
+                    ? 
+                      <Ranker 
+                        getRoute="/getAlbumSongRankings?album_id=2" 
+                        postRoute="saveAlbumSongRankings"
+                        isAlbum={false}
+                        rankDisplay='Fearless Album'
+                      /> 
+                    : 
+                      <Navigate to="/" replace={true} />
+                  } 
+                />
+
+                <Route 
+                  path="/speaknow" 
+                  element={
+                    UserStore.isLoggedIn || UserStore.isDevelopment 
+                    ? 
+                      <Ranker 
+                        getRoute="/getAlbumSongRankings?album_id=3" 
+                        postRoute="saveAlbumSongRankings"
+                        isAlbum={false}
+                        rankDisplay='Speak Now Album'
+                      /> 
+                    : 
+                      <Navigate to="/" replace={true} />
+                  } 
+                />
+
+                <Route 
+                  path="/red" 
+                  element={
+                    UserStore.isLoggedIn || UserStore.isDevelopment 
+                    ? 
+                      <Ranker 
+                        getRoute="/getAlbumSongRankings?album_id=4" 
+                        postRoute="saveAlbumSongRankings"
+                        isAlbum={false}
+                        rankDisplay='Red Album'
+                      /> 
+                    : 
+                      <Navigate to="/" replace={true} />
+                  } 
+                />
+
+                <Route 
+                  path="/1989" 
+                  element={
+                    UserStore.isLoggedIn || UserStore.isDevelopment 
+                    ? 
+                      <Ranker 
+                        getRoute="/getAlbumSongRankings?album_id=5" 
+                        postRoute="saveAlbumSongRankings"
+                        isAlbum={false}
+                        rankDisplay='1989 Album'
+                      /> 
+                    : 
+                      <Navigate to="/" replace={true} />
+                  } 
+                />
+                <Route 
+                  path="/reputation" 
+                  element={
+                    UserStore.isLoggedIn || UserStore.isDevelopment 
+                    ? 
+                      <Ranker 
+                        getRoute="/getAlbumSongRankings?album_id=6" 
+                        postRoute="saveAlbumSongRankings"
+                        isAlbum={false}
+                        rankDisplay='Reputation Album'
+                      /> 
+                    : 
+                      <Navigate to="/" replace={true} />
+                  } 
+                />
+                <Route 
+                  path="/lover" 
+                  element={
+                    UserStore.isLoggedIn || UserStore.isDevelopment 
+                    ? 
+                      <Ranker 
+                        getRoute="/getAlbumSongRankings?album_id=7" 
+                        postRoute="saveAlbumSongRankings"
+                        isAlbum={false}
+                        rankDisplay='Lover Album'
+                      /> 
+                    : 
+                      <Navigate to="/" replace={true} />
+                  } 
+                />
+                <Route 
+                  path="/folklore" 
+                  element={
+                    UserStore.isLoggedIn || UserStore.isDevelopment 
+                    ? 
+                      <Ranker 
+                        getRoute="/getAlbumSongRankings?album_id=8" 
+                        postRoute="saveAlbumSongRankings"
+                        isAlbum={false}
+                        rankDisplay='folklore Album'
+                      /> 
+                    : 
+                      <Navigate to="/" replace={true} />
+                  } 
+                />
+                <Route 
+                  path="/evermore" 
+                  element={
+                    UserStore.isLoggedIn || UserStore.isDevelopment 
+                    ? 
+                      <Ranker 
+                        getRoute="/getAlbumSongRankings?album_id=9" 
+                        postRoute="saveAlbumSongRankings"
+                        isAlbum={false}
+                        rankDisplay='evermore Album'
+                      /> 
+                    : 
+                      <Navigate to="/" replace={true} />
+                  } 
+                />
+                <Route 
+                  path="/midnights" 
+                  element={
+                    UserStore.isLoggedIn || UserStore.isDevelopment 
+                    ? 
+                      <Ranker 
+                        getRoute="/getAlbumSongRankings?album_id=10" 
+                        postRoute="saveAlbumSongRankings"
+                        isAlbum={false}
+                        rankDisplay='Midnights Album'
+                      /> 
+                    : 
+                      <Navigate to="/" replace={true} />
+                  } 
+                />
+
+                <Route 
                   path="/user/:username" 
                   element={
                     UserStore.isLoggedIn ? <UserProfile /> : <Navigate to="/" replace={true} />

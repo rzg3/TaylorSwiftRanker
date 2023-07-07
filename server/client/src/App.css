@@ -135,8 +135,6 @@ h3 {
   
 .display_content {
   font-weight: 700;
-  /* margin-bottom: 10px; */
-  overflow: hidden;
   height: 100%;
   width: 100%;
   display: flex;
@@ -147,8 +145,8 @@ h3 {
 
 
 .youtube_link {
-    max-width: 40%;
-    max-height: 40%;
+    max-width: 30%;
+    max-height: 30%;
     cursor: pointer;
 }
 
