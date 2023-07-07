@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SubmitButton from './SubmitButton';
 import { Navigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
@@ -7,9 +7,21 @@ import UserSearch from './Search Bar/UserSearch';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import Following from './Following';
+import DashboardPopUp from './DashboardPopUp';
 
 class Dashboard extends React.Component {
 
+  state = {
+    openPopUp: false
+  }
+
+  togglePopUp = () => {
+    this.setState({
+      openPopUp: !this.state.openPopUp
+    })
+  }
+
+  
 
   handleLogout = async () => {
     try {
@@ -39,13 +51,14 @@ class Dashboard extends React.Component {
 
     return (
         <div className='app d-flex just-content-around'> 
+        <DashboardPopUp open={this.state.openPopUp} togglePopUp = {this.togglePopUp}/>
         <div className='centered' style={{marginLeft: '3vw', width: '50%'}}>Favorites</div>
         <div className="centered align-self-center">      
           <h3>Welcome {username}</h3>
           <div className='search-bar'>
             <UserSearch />
           </div>
-          <SubmitButton text="Album Ranker" disabled={false} onClick={event => window.location.href='/albums'}/>
+          <SubmitButton text="See Rankers" disabled={false} onClick={this.togglePopUp}/>
           <SubmitButton text="Global Rankings" disabled={false} onClick={event => window.location.href='/globalrankings'}/>
           <SubmitButton text="Log out" disabled={false} onClick={this.handleLogout} />
         </div>
