@@ -16,6 +16,13 @@ h3 {
     text-align: center;
   }
 
+.astext {
+  background:none;
+  border:none;
+  margin:0;
+  padding:0;
+  cursor: pointer;
+}
 
 .loginForm .registerForm {
     box-sizing: border-box;

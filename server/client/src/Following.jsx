@@ -1,9 +1,11 @@
 import React, { useEffect, useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 import './App.css'
 
 function Following(props) {
 
     const [following, setFollowing] = useState([]);
+    const navigate = useNavigate();
     
     useEffect(() => {
         fetchFollowing();
@@ -36,7 +38,7 @@ function Following(props) {
             >
                 {
                     following.length !== 0 ? (
-                        following.map(follow => <h5>{follow['username']}</h5>)
+                        following.map(follow => <button className='astext' onClick={e => navigate(`/user/${follow['username']}`)}><h5>{follow['username']}</h5></button>)
                     ) :
                     (<h5
                         style={{
