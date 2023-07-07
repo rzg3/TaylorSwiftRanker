@@ -333,21 +333,55 @@ class Router {
         'LEFT JOIN albums AS a ON ar.album_id = a.album_id ' +
         'GROUP BY ar.album_id ' +
         'ORDER BY SUM(ar.`rank`)';
+      
+      const query2 = 'SELECT s.song_name, s.youtube_link, s.cover_art, sr.song_id, SUM(sr.album_song_rank)' +
+        'FROM song_ranking AS sr ' +
+        'LEFT JOIN songs AS s ON sr.song_id = s.song_id ' +
+        'WHERE s.album_id = ? ' +
+        'GROUP BY sr.song_id ' +
+        'ORDER BY SUM(sr.album_song_rank)';
   
-      db.query(query, (error, results) => {
-        if (error) {
-          console.error('Error fetching rankings:', error);
-          res.status(500).send('Internal Server Error');
-        } else {
-          const rankings = results.map(row => ({
-            album_name: row.album_name,
-            youtube_link: row.youtube_link,
-          }));
-          res.json(rankings);
-        }
+        db.query(query, (error, albumResults) => {
+          if (error) {
+            console.error('Error fetching album rankings:', error);
+            res.status(500).send('Internal Server Error');
+          } else {
+
+            const AlbumSongRankings = [];
+
+            const albumRankings = albumResults.map(row => ({
+              album_name: row.album_name,
+              youtube_link: row.youtube_link,
+            }));
+
+            const getSongRankings = (index) => {
+              if (index > 10) {
+                // Finished querying all song rankings
+                res.json({ albums: albumRankings, albumSongs: AlbumSongRankings });
+                return;
+              }
+    
+              const albumId = index;
+              db.query(query2, [albumId], (error, AlbumSongResults) => {
+                if (error) {
+                  console.error(`Error fetching song rankings for album ID ${albumId}:`, error);
+                  res.status(500).send('Internal Server Error');
+                } else {
+                  // Add song rankings to the songRankings list
+                  AlbumSongRankings.push(AlbumSongResults);
+    
+                  // Move to the next album ID
+                  getSongRankings(index + 1);
+                }
+              });
+            };
+    
+            // Start querying song rankings
+            getSongRankings(1);
+          }
+        });
       });
-    });
-  }
+    }
 
   getUsers(app, db) {
     app.get('/getUsers', (req, res) => {
@@ -375,29 +409,62 @@ class Router {
     });
   }
   
-  getUserRankings(app,db) {
+  getUserRankings(app, db) {
     app.get('/getUserRankings', (req, res) => {
-
       const username = req.query.username;
-
-      const query = 'SELECT a.album_name, a.youtube_link ' +
-      'FROM album_ranking AS ar ' +
-      'LEFT JOIN albums AS a ON ar.album_id = a.album_id ' + 
-      'LEFT JOIN user as u ON ar.user_id = u.id ' +
-      'WHERE u.username = ? '+
-      'ORDER BY ar.`rank`';
   
-      db.query(query, [`${username}`], (error, results) => {
+      const query = 'SELECT a.album_name, a.youtube_link ' +
+        'FROM album_ranking AS ar ' +
+        'LEFT JOIN albums AS a ON ar.album_id = a.album_id ' +
+        'LEFT JOIN user as u ON ar.user_id = u.id ' +
+        'WHERE u.username = ? ' +
+        'ORDER BY ar.`rank`';
+  
+      const query2 = 'SELECT s.song_name, s.youtube_link, s.cover_art ' +
+        'FROM song_ranking as sr ' +
+        'LEFT JOIN songs AS s ON sr.song_id = s.song_id ' +
+        'LEFT JOIN user as u ON sr.user_id = u.id ' +
+        'WHERE u.username = ? AND s.album_id = ? ' +
+        'ORDER BY sr.album_song_rank';
+  
+      db.query(query, [username], (error, albumResults) => {
         if (error) {
-          console.error('Error fetching rankings:', error);
+          console.error('Error fetching album rankings:', error);
           res.status(500).send('Internal Server Error');
         } else {
-          res.json(results);
+
+          const AlbumSongRankings = [];
+  
+          const getSongRankings = (index) => {
+            if (index > 10) {
+              // Finished querying all song rankings
+              res.json({ albums: albumResults, albumSongs: AlbumSongRankings });
+              return;
+            }
+  
+            const albumId = index;
+            db.query(query2, [username, albumId], (error, AlbumSongResults) => {
+              if (error) {
+                console.error(`Error fetching song rankings for album ID ${albumId}:`, error);
+                res.status(500).send('Internal Server Error');
+              } else {
+                // Add song rankings to the songRankings list
+                AlbumSongRankings.push(AlbumSongResults);
+  
+                // Move to the next album ID
+                getSongRankings(index + 1);
+              }
+            });
+          };
+  
+          // Start querying song rankings
+          getSongRankings(1);
         }
       });
     });
   }
-
+  
+  
   checkUser(app,db) {
     app.get('/checkUser', (req, res) => {
 

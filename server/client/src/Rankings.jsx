@@ -5,14 +5,18 @@ import RankCard from './CardComponent.jsx';
 import './App.css';
 import SubmitButton from './SubmitButton.jsx';
 import { useNavigate } from 'react-router-dom';
+import ScrollableRankings from './ScrollableRankings.jsx';
 
 function Rankings(props) {
 
     const [albumRankings, setAlbumRankings] = useState([])
+    const [albumSongRankings, setAlbumSongRankings] = useState([])
     const navigate = useNavigate();
+    const albumTitles = ['Taylor Swift', 'Fearless', 'Speak Now', 'Red', '1989', 'Reputation', 'Lover', 'folklore', 'evermore', 'Midnights']
 
     useEffect(() => {
         fetchRankings();
+        
       }, []);
 
     const fetchRankings = async () => {
@@ -22,7 +26,8 @@ function Rankings(props) {
         });
         if (response.ok) {
           const rankings = await response.json();
-          setAlbumRankings(rankings);
+          setAlbumRankings(rankings.albums);
+          setAlbumSongRankings(rankings.albumSongs);
         } else {
           console.error('Error fetching rankings:', response.status);
         }
@@ -30,6 +35,7 @@ function Rankings(props) {
         console.error('Error fetching rankings:', error);
       }
     };
+    
       
 
     return (
@@ -43,89 +49,12 @@ function Rankings(props) {
             </button>
           ) : ''}
         </div>
-        <div className='rank-row d-flex flex-column align-items-center mb-5'>
-          <h3 className='align-self-start'>Albums</h3>
-          <div 
-            class='scrollable d-inline-flex p-2  align-items-center flex-wrap justify-content-center' 
-            style={{
-              border: '3.5px dashed rgba(0,0,0,.5)', borderRadius: '1.5vh' ,boxSizing: 'border-box', width: '100%'
-            }}
-          >
-            { albumRankings.length !== 0 
-              ?
-              albumRankings.map((album, index)=> 
-                <RankCard display={album.album_name} youtube_link={album.youtube_link} rank={index + 1} />
-                )
-              : (
-                  <h4
-                    style={{
-                      fontStyle: 'italic',
-                      opacity: 0.5,
-                      margin: 'auto',
-                    }}
-                  >
-                    No Rankings Yet
-                  </h4>
-                )
-              }
-          </div>
-        </div>
 
-        <div className='rank-row d-flex flex-column align-items-center mb-5'>
-          <h3 className='align-self-start'>Songs</h3>
-          <div 
-            class='scrollable d-inline-flex p-2  align-items-center flex-wrap justify-content-center' 
-            style={{
-              border: '3.5px dashed rgba(0,0,0,.5)', borderRadius: '1.5vh' ,boxSizing: 'border-box', width: '100%'
-            }}
-          >
-            { albumRankings.length !== 0 
-              ?
-              albumRankings.map((album, index)=> 
-                <RankCard display={album.album_name} youtube_link={album.youtube_link} rank={index + 1} />
-                )
-              : (
-                  <h4
-                    style={{
-                      fontStyle: 'italic',
-                      opacity: 0.5,
-                      margin: 'auto',
-                    }}
-                  >
-                    No Rankings Yet
-                  </h4>
-                )
-              }
-          </div>
-        </div>
+        <ScrollableRankings albumRankings={albumRankings} display='Albums' isAlbum={true}/>
 
-        <div className='rank-row d-flex flex-column align-items-center mb-3'>
-          <h3 className='align-self-start'>The Eras Tour Setlist</h3>
-          <div 
-            class='scrollable d-inline-flex p-2  align-items-center flex-wrap justify-content-center' 
-            style={{
-              border: '3.5px dashed rgba(0,0,0,.5)', borderRadius: '1.5vh' ,boxSizing: 'border-box', width: '100%'
-            }}
-          >
-            { albumRankings.length !== 0 
-              ?
-              albumRankings.map((album, index)=> 
-                <RankCard display={album.album_name} youtube_link={album.youtube_link} rank={index + 1} />
-                )
-              : (
-                  <h4
-                    style={{
-                      fontStyle: 'italic',
-                      opacity: 0.5,
-                      margin: 'auto',
-                    }}
-                  >
-                    No Rankings Yet
-                  </h4>
-                )
-              }
-          </div>
-        </div>
+        {albumSongRankings.map((albumSong, index) => <ScrollableRankings albumRankings={albumSong} display={albumTitles[index]} isAlbum={false}/>)}
+
+        
         <SubmitButton text="Return" disabled={false} onClick={event => navigate('/dashboard')}/>
         </div>
         </Container>
