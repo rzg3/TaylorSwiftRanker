@@ -50,9 +50,9 @@ function Rankings(props) {
           ) : ''}
         </div>
 
-        <ScrollableRankings albumRankings={albumRankings} display='Albums' isAlbum={true}/>
+        <ScrollableRankings key={0} albumRankings={albumRankings} display='Albums' isAlbum={true}/>
 
-        {albumSongRankings.map((albumSong, index) => <ScrollableRankings albumRankings={albumSong} display={albumTitles[index]} isAlbum={false}/>)}
+        {albumSongRankings.map((albumSong, index) => <ScrollableRankings key={index + 1} albumRankings={albumSong} display={albumTitles[index]} isAlbum={false}/>)}
 
         
         <SubmitButton text="Return" disabled={false} onClick={event => navigate('/dashboard')}/>
