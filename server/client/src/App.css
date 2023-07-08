@@ -215,6 +215,24 @@ h3 {
     margin-top: -2.5vh;
 }
 
+.favoritesSquare {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 20vh;
+  height: 25vh;
+  border: 3.5px dashed rgba(0,0,0,.5);
+  border-radius: 1.5vh;
+  margin: 1vh;
+  padding: 0.1vh 0.2vh;
+  align-items: center;
+}
+
+.favoritesCoverArt {
+  max-width: 100%;
+  max-height: 100%;
+}
+
 
 
   

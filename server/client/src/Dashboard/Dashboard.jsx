@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css'
 import Following from './Following';
 import DashboardPopUp from './DashboardPopUp';
+import Favorites from './Favorites';
 
 class Dashboard extends React.Component {
 
@@ -52,7 +53,9 @@ class Dashboard extends React.Component {
     return (
         <div className='app d-flex just-content-around'> 
         <DashboardPopUp open={this.state.openPopUp} togglePopUp = {this.togglePopUp}/>
-        <div className='centered' style={{marginLeft: '3vw', width: '50%'}}>Favorites</div>
+        <div className='centered' style={{marginLeft: '3vw', width: '50%'}}>
+          <Favorites />
+        </div>
         <div className="centered align-self-center">      
           <h3>Welcome {username}</h3>
           <div className='search-bar'>

@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const e = require('express');
 
 class Router {
   constructor(app, db) {
@@ -20,6 +21,7 @@ class Router {
     this.saveAlbumSongRankings(app, db);
     this.getSongRankings(app,db);
     this.saveSongRankings(app,db);
+    this.getFavorites(app,db);
   }
 
   register(app, db) {
@@ -668,6 +670,45 @@ class Router {
         }
         else {
           res.json(false)
+        }
+      });
+    });
+  }
+
+  getFavorites(app,db) {
+    app.get('/getFavorites', (req, res) => {
+
+      const query = 'SELECT a.album_name, a.youtube_link ' +
+                    'FROM albums as a ' + 
+                    'LEFT JOIN album_ranking as ar ON a.album_id = ar.album_id ' +
+                    'WHERE user_id = ? AND ar.`rank` = 1 ' +
+                    'LIMIT 1';
+      
+      const query2 = 'SELECT s.song_name, s.youtube_link, s.cover_art ' +
+                  'FROM songs as s LEFT JOIN song_ranking as sr ' + 
+                  'ON s.song_id = sr.song_id ' +
+                  'WHERE user_id = ? and sr.`rank` = 1 ' +
+                  'LIMIT 1';
+            
+      db.query(query, [req.session.userID], (error, results) => {
+        if (error) {
+          console.error('Error fetching rankings:', error);
+          res.status(500).send('Internal Server Error');
+        } 
+        else {
+          const favorites = [];
+
+          favorites.push(results[0]);
+          db.query(query2, [req.session.userID], (error, results2) => {
+            if (error) {
+              console.error('Error fetching rankings:', error);
+              res.status(500).send('Internal Server Error');
+            } else{
+              favorites.push(results2[0]);
+              
+              res.json(favorites);
+            }
+          })
         }
       });
     });
