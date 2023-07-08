@@ -41,6 +41,7 @@ export default function DashboardPopUp({ open, togglePopUp }) {
         <div style={OVERLAY_STYLES} />
         <div style={MODAL_STYLES} className='contain2'>
             <SubmitButton text="Album Ranker" disabled={false} onClick={event => navigate('/albums')}/>
+            <SubmitButton text="Song Ranker" disabled={false} onClick={event => navigate('/songs')}/>
             <SubmitButton text="Taylor Swift Ranker" disabled={false} onClick={event => navigate('/taylorswift')}/>
             <SubmitButton text="Fearless Ranker" disabled={false} onClick={event => navigate('/fearless')}/>
             <SubmitButton text="Speak Now Ranker" disabled={false} onClick={event => navigate('/speaknow')}/>
