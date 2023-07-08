@@ -67,6 +67,10 @@ app.get('/albums', function(req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
+app.get('/songs', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+});
+
 app.get('/globalrankings', function(req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });

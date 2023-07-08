@@ -6,7 +6,7 @@ import UserStore from './stores/UserStore';
 import LoginForm from './LoginForm';
 import SubmitButton from './SubmitButton';
 import './App.css'
-import Dashboard from './Dashboard';
+import Dashboard from './Dashboard/Dashboard';
 import Ranker from './Ranker/Ranker';
 import Register from './Register';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -135,6 +135,22 @@ class App extends React.Component{
                         postRoute="saveRankings"
                         isAlbum={true}
                         rankDisplay='Albums'
+                      />  
+                    : 
+                      <Navigate to="/" replace={true} />
+                  } 
+                />
+
+                <Route 
+                  path="/songs" 
+                  element={
+                    UserStore.isLoggedIn || UserStore.isDevelopment 
+                    ? 
+                      <Ranker 
+                        getRoute="/getSongRankings" 
+                        postRoute="saveSongRankings"
+                        isAlbum={false}
+                        rankDisplay='Songs'
                       />  
                     : 
                       <Navigate to="/" replace={true} />

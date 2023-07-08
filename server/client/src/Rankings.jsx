@@ -11,6 +11,7 @@ function Rankings(props) {
 
     const [albumRankings, setAlbumRankings] = useState([])
     const [albumSongRankings, setAlbumSongRankings] = useState([])
+    const [songRankings, setSongRankings] = useState([])
     const navigate = useNavigate();
     const albumTitles = ['Taylor Swift', 'Fearless', 'Speak Now', 'Red', '1989', 'Reputation', 'Lover', 'folklore', 'evermore', 'Midnights']
 
@@ -28,6 +29,7 @@ function Rankings(props) {
           const rankings = await response.json();
           setAlbumRankings(rankings.albums);
           setAlbumSongRankings(rankings.albumSongs);
+          setSongRankings(rankings.songs);
         } else {
           console.error('Error fetching rankings:', response.status);
         }
@@ -51,8 +53,9 @@ function Rankings(props) {
         </div>
 
         <ScrollableRankings key={0} albumRankings={albumRankings} display='Albums' isAlbum={true}/>
+        <ScrollableRankings key={0} albumRankings={songRankings} display='Songs' isAlbum={false}/>
 
-        {albumSongRankings.map((albumSong, index) => <ScrollableRankings key={index + 1} albumRankings={albumSong} display={albumTitles[index]} isAlbum={false}/>)}
+        {albumSongRankings.map((albumSong, index) => <ScrollableRankings key={index + 2} albumRankings={albumSong} display={albumTitles[index]} isAlbum={false}/>)}
 
         
         <SubmitButton text="Return" disabled={false} onClick={event => navigate('/dashboard')}/>

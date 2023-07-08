@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactDOM from 'react-dom';
-import SubmitButton from './SubmitButton';
-import "./Ranker/Sorter.css";
+import SubmitButton from '../SubmitButton';
+import "../Ranker/Sorter.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const MODAL_STYLES = {

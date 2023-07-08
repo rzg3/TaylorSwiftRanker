@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import SubmitButton from './SubmitButton';
+import SubmitButton from '../SubmitButton';
 import { Navigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import UserStore from './stores/UserStore';
-import UserSearch from './Search Bar/UserSearch';
+import UserStore from '../stores/UserStore';
+import UserSearch from '../Search Bar/UserSearch';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'
+import '../App.css'
 import Following from './Following';
 import DashboardPopUp from './DashboardPopUp';
 
