@@ -7,13 +7,8 @@ function FavoritesSquare({ text, coverArt, youtube_link}) {
   return (
     <div className='favoritesSquare'>    
             <img className="favoritesCoverArt" src={`/album_art/${coverArt}.png`} alt="Album Art" />
-            <div className='d-flex justify-content-center text-align-center'>
-                <TextResizeComponent text={text} maxSize={30} defFontSize={2}/>
-                <div style={{width: '4vh', height: '4vh', alignSelf: 'center'}}>
-                    <a href={youtube_link} target="_blank" rel="noopener noreferrer">
-                        <img className="youtube_logo" src="/youtubelogo.png" alt="YouTube Logo" />
-                    </a>
-                </div>
+            <div className='d-flex justify-content-center text-align-center favoritesText'>
+                <TextResizeComponent text={text} maxSize={20} defFontSize={2}/>
             </div>
     </div>
   )

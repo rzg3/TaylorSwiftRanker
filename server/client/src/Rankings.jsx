@@ -41,6 +41,7 @@ function Rankings(props) {
       
 
     return (
+      <>
         <Container className="p-2" style={{"width": "100vw"}} align="center">
         <div className='d-inline-flex flex-column justify-content-between align-content-center flex-wrap m-5' style={{boxSizing: 'border-box', width: 'calc(100% - 6rem)'}}>
         <div className='mb-3' style={{boxSizing: 'border-box', width: '100%'}}>
@@ -60,7 +61,11 @@ function Rankings(props) {
         
         <SubmitButton text="Return" disabled={false} onClick={event => navigate('/dashboard')}/>
         </div>
+        <p className='legal'>All copyrighted content (i.e. album artwork) on Taylor Swift Ranker are owned by their respective owners (Taylor Swift / Record Labels).</p>
         </Container>
+       
+
+      </>
 
     )
 }

@@ -5,6 +5,7 @@ import UserStore from './stores/UserStore';
 import { observer } from 'mobx-react';
 import './App.css';
 import { Navigate } from 'react-router-dom';
+import RegisterPage from './RegisterPage';
 
 class Register extends React.Component{
     
@@ -113,10 +114,8 @@ class Register extends React.Component{
                 onClick={ () => this.doLogin() }
                 />
 
-                <SubmitButton
-                text="Back to Login" 
-                disabled={false} 
-                onClick={event => window.location.href='/'}/>
+                <RegisterPage />
+
             </div>
             );
     }

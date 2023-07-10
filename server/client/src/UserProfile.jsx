@@ -5,7 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import SubmitButton from './SubmitButton';
 
-function UserProfile() {
+
+function UserProfile( {currUser}) {
 
     let params = useParams();
     const navigate = useNavigate();
@@ -99,27 +100,53 @@ function UserProfile() {
                             following
                                 ?
                                     (
-                                        <Rankings 
-                                            display={params.username + "'s"} 
-                                            route='/getUserRankings' 
-                                            user={params.username} 
-                                            followButton={true} 
-                                            followUnfollow={removeFollow} 
-                                            btnText={'Unfollow'}
-                                            setFollowing={setFollowing}
-                                        />
+                                        currUser !== params.username ? 
+                                            (<Rankings 
+                                                display={params.username + "'s"} 
+                                                route='/getUserRankings' 
+                                                user={params.username} 
+                                                followButton={true} 
+                                                followUnfollow={removeFollow} 
+                                                btnText={'Unfollow'}
+                                                setFollowing={setFollowing}
+                                            />)
+                                        :
+                                            (<Rankings 
+                                                display={params.username + "'s"} 
+                                                route='/getUserRankings' 
+                                                user={params.username} 
+                                                followButton={false} 
+                                                followUnfollow={removeFollow} 
+                                                btnText={'Unfollow'}
+                                                setFollowing={setFollowing}
+                                            />)
+                                        
                                     )
                                 :
                                     (
-                                        <Rankings 
-                                            display={params.username + "'s"} 
-                                            route='/getUserRankings' 
-                                            user={params.username} 
-                                            followButton={true} 
-                                            followUnfollow={insertFollow} 
-                                            btnText={'Follow'}
-                                            setFollowing={setFollowing}
-                                        />
+                                        currUser !== params.username 
+                                        ? 
+                                            
+                                            <Rankings 
+                                                display={params.username + "'s"} 
+                                                route='/getUserRankings' 
+                                                user={params.username} 
+                                                followButton={true} 
+                                                followUnfollow={insertFollow} 
+                                                btnText={'Follow'}
+                                                setFollowing={setFollowing}
+                                            />
+                                            
+                                        :
+                                            <Rankings 
+                                                display={params.username + "'s"} 
+                                                route='/getUserRankings' 
+                                                user={params.username} 
+                                                followButton={false} 
+                                                followUnfollow={insertFollow} 
+                                                btnText={'Follow'}
+                                                setFollowing={setFollowing}
+                                            />
                                     )
                         )
                     :

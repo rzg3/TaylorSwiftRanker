@@ -12,6 +12,7 @@ import Register from './Register';
 import { Container, Row, Col } from 'react-bootstrap';
 import Rankings from './Rankings';
 import UserProfile from './UserProfile';
+import LandingPage from './LandingPage';
 
 class App extends React.Component{
 
@@ -74,7 +75,7 @@ class App extends React.Component{
     if (UserStore.loading){
       return (
         <div className="app">
-          <div className="container">
+          <div className="container centered">
             Loading, please wait...
           </div>
         </div>
@@ -91,10 +92,7 @@ class App extends React.Component{
                   path="/" 
                   element={
                     UserStore.isLoggedIn ? <Navigate to="/dashboard" replace={true} /> : 
-                    <Container className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '100vh', width: '100%', maxWidth: '10000px' }}>
-                      <LoginForm />
-                      <SubmitButton text="Register New Account" disabled={false} onClick={event => window.location.href='/register'} />
-                    </Container>
+                    <LandingPage />
                   } 
                 />
                 <Route 
@@ -315,7 +313,7 @@ class App extends React.Component{
                 <Route 
                   path="/user/:username" 
                   element={
-                    UserStore.isLoggedIn ? <UserProfile /> : <Navigate to="/" replace={true} />
+                    UserStore.isLoggedIn ? <UserProfile currUser={UserStore.username}/> : <Navigate to="/" replace={true} />
                   }/>
               </Routes>
             </Router>

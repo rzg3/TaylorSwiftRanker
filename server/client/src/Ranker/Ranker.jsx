@@ -106,9 +106,11 @@ function Ranker(props) {
                 <SubmitButton text="Save Rankings" disabled={false} onClick={handleSave}/>
                 <button className='btn btn-outline-primary submitButton' onClick={() => setOpenSorter(true)}>Open Sorter</button> 
                   <SubmitButton className="custom-padding" text="Return to Dashboard" disabled={false} onClick={event => navigate('/dashboard')}/>
+                 
                 </div>
                 
             </Container>
+            <p className='legal'>All copyrighted content (i.e. album artwork) on Taylor Swift Ranker are owned by their respective owners (Taylor Swift / Record Labels).</p>
         </DndContext>
         
 

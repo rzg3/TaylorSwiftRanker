@@ -29,12 +29,19 @@ function Following(props) {
     };
     
     return (
-        <div className='align-self-end' style={{ width: '50%'}}>
+        <div className='align-self-end' style={{
+                                            width: '50%',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            textAlign: 'center'
+                                        }}
+        >
             <h3>Following</h3>
             <div 
                 class='scrollable d-inline-flex p-2  flex-column align-items-center flex-wrap justify-content-center' 
                 style={{
-                border: '3.5px dashed rgba(0,0,0,.5)', borderRadius: '1.5vh' ,boxSizing: 'border-box', width: '100%'
+                border: '3.5px dashed rgba(0,0,0,.5)', borderRadius: '1.5vh' ,boxSizing: 'border-box', width: '25vh'
                 }}
             >
                 {

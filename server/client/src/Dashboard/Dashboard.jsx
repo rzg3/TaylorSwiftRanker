@@ -53,8 +53,8 @@ class Dashboard extends React.Component {
     return (
         <div className='app d-flex just-content-around'> 
         <DashboardPopUp open={this.state.openPopUp} togglePopUp = {this.togglePopUp}/>
-        <div className='centered' style={{marginLeft: '3vw', width: '50%'}}>
-          <Favorites />
+        <div className='centered' style={{marginLeft: '5vw', width: '50%'}}>
+          <Favorites currUser={UserStore.username}/>
         </div>
         <div className="centered align-self-center">      
           <h3>Welcome {username}</h3>
@@ -65,10 +65,14 @@ class Dashboard extends React.Component {
           <SubmitButton text="Global Rankings" disabled={false} onClick={event => window.location.href='/globalrankings'}/>
           <SubmitButton text="Log out" disabled={false} onClick={this.handleLogout} />
         </div>
-        <div className='centered' style={{marginRight: '3vw', width: '50%'}}>
+        <div className='centered' style={{marginRight: '5vw', width: '50%'}}>
           <Following username={UserStore.username}/>
         </div>
+        <footer>
+          <p className='legal'>All copyrighted content (i.e. album artwork) on Taylor Swift Ranker are owned by their respective owners (Taylor Swift / Record Labels).</p>
+        </footer>
         </div>
+        
     );
   }
 }

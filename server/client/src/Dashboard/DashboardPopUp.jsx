@@ -11,7 +11,7 @@ const MODAL_STYLES = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     backgroundColor: '#FFF',
-    padding: '50px',
+    padding: '10px',
     zIndex: 1000,
     borderRadius: '2.5vh'
 }
@@ -40,20 +40,24 @@ export default function DashboardPopUp({ open, togglePopUp }) {
         <>
         <div style={OVERLAY_STYLES} />
         <div style={MODAL_STYLES} className='contain2'>
-            <SubmitButton text="Album Ranker" disabled={false} onClick={event => navigate('/albums')}/>
-            <SubmitButton text="Song Ranker" disabled={false} onClick={event => navigate('/songs')}/>
-            <SubmitButton text="Taylor Swift Ranker" disabled={false} onClick={event => navigate('/taylorswift')}/>
-            <SubmitButton text="Fearless Ranker" disabled={false} onClick={event => navigate('/fearless')}/>
-            <SubmitButton text="Speak Now Ranker" disabled={false} onClick={event => navigate('/speaknow')}/>
-            <SubmitButton text="Red Ranker" disabled={false} onClick={event => navigate('/red')}/>
-            <SubmitButton text="1989 Ranker" disabled={false} onClick={event => navigate('/1989')}/>
-            <SubmitButton text="Reputation Ranker" disabled={false} onClick={event => navigate('/reputation')}/>
-            <SubmitButton text="Lover Ranker" disabled={false} onClick={event => navigate('/lover')}/>
-            <SubmitButton text="folklore Ranker" disabled={false} onClick={event => navigate('/folklore')}/>
-            <SubmitButton text="evermore Ranker" disabled={false} onClick={event => navigate('/evermore')}/>
-            <SubmitButton text="Midnights Ranker" disabled={false} onClick={event => navigate('/midnights')}/>
-            <SubmitButton text="Back to Dashboard" disabled={false} onClick={togglePopUp}/>
-            
+            <div 
+                class='scrollable px-4 py-3' style={{height: '85vh'}}
+            >
+                <SubmitButton text="Album Ranker" disabled={false} onClick={event => navigate('/albums')}/>
+                <SubmitButton text="Song Ranker" disabled={false} onClick={event => navigate('/songs')}/>
+                <SubmitButton text="Taylor Swift Ranker" disabled={false} onClick={event => navigate('/taylorswift')}/>
+                <SubmitButton text="Fearless Ranker" disabled={false} onClick={event => navigate('/fearless')}/>
+                <SubmitButton text="Speak Now Ranker" disabled={false} onClick={event => navigate('/speaknow')}/>
+                <SubmitButton text="Red Ranker" disabled={false} onClick={event => navigate('/red')}/>
+                <SubmitButton text="1989 Ranker" disabled={false} onClick={event => navigate('/1989')}/>
+                <SubmitButton text="Reputation Ranker" disabled={false} onClick={event => navigate('/reputation')}/>
+                <SubmitButton text="Lover Ranker" disabled={false} onClick={event => navigate('/lover')}/>
+                <SubmitButton text="folklore Ranker" disabled={false} onClick={event => navigate('/folklore')}/>
+                <SubmitButton text="evermore Ranker" disabled={false} onClick={event => navigate('/evermore')}/>
+                <SubmitButton text="Midnights Ranker" disabled={false} onClick={event => navigate('/midnights')}/>
+                <br />
+                <SubmitButton text="Back to Dashboard" disabled={false} onClick={togglePopUp}/>
+            </div>
         </div>
         </>,
     document.getElementById('portal')

@@ -18,7 +18,8 @@ function TextResizeComponent( {text, maxSize, defFontSize}) {
                                              display: 'flex',
                                              justifyContent: 'center',
                                              alignItems: 'center',
-                                             overflow: 'hidden'
+                                             overflow: 'hidden',
+                                             textAlign: 'center'
                                            }}>
       {text}
     </div>
