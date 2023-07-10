@@ -15,22 +15,21 @@ console.log('Testing server')
 
 // Database
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: process.env.DB_PASSWORD,
-    database: 'taylorswiftranker'
+    host     : process.env.RDS_HOSTNAME,
+    user     : process.env.RDS_USERNAME,
+    password : process.env.RDS_PASSWORD,
+    port     : process.env.RDS_PORT,
+    database : process.env.RDS_DATABASE
 });
 
 db.connect(function(err) {
     if (err) {
-        console.log('DB error');
-        throw err;
-        return false;
+      console.error('Database connection failed: ' + err.stack);
+      return;
     }
-    else {
-        console.log('worked db connected')
-    }
-});
+  
+    console.log('Connected to database.');
+  });
 
 const sessionStore = new MySQLStore({
     expiration:(1825 * 86400 * 1000),
