@@ -1,6 +1,6 @@
 # TaylorSwiftRanker
 
-Taylor Swift Ranking App Built using MySQL, Express.js, React.jsm Node.js
+Taylor Swift Ranking App Built using MySQL, Express.js, React.js, and Node.js
 
 Please check out this temporary deployment while I continue to develop new features and plan for a full release: http://ec2-34-227-59-57.compute-1.amazonaws.com:3000/
 
