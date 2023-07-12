@@ -101,7 +101,7 @@ function Ranker(props) {
                     )}
                 </SortableContext>
                 </div>
-                <div className='m-3'> 
+                <div className='m-3 d-flex flex-column align-items-center'> 
                 <SorterPopUp open={openSorter} onClose={() => setOpenSorter(false)} albums={albums} setAlbums={setAlbums} loaded={loaded} isAlbum={props.isAlbum}/>
                 <SubmitButton text="Save Rankings" disabled={false} onClick={handleSave}/>
                 <button className='btn btn-outline-primary submitButton' onClick={() => setOpenSorter(true)}>Open Sorter</button> 
