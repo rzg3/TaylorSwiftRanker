@@ -35,6 +35,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
     const userChoiceRef = useRef(null);
     const [sortedArr, setSortedArr] = useState([]);
     const [sortingComplete, setSortingComplete] = useState(false);
+    const [battleCounter, setBattleCcounter] = useState(0);
 
     const merge = async (left, right) => {
         const merged = [];
@@ -75,6 +76,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
 
     const handleUserChoice = (chosenAlbum) => {
         userChoiceRef.current = chosenAlbum;
+        setBattleCcounter(battleCounter + 1);
     };
       
     useEffect(() => {
@@ -144,10 +146,12 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
                     </div>
                     </div>
                 </div>
-                <div className="middleContent">
+                <div className="middleContent d-flex flex-column">
                     <button className="btn-square-md" onClick={() => chooseRandom()}>
                         Choose Random
                     </button>
+                    <h5>Battles: {battleCounter}</h5>
+                    <h5>Max Battles: {Math.trunc(albums.length * Math.log2(albums.length))}</h5>
                 </div>
                 <div className="rightContent">
                     <div className="art">

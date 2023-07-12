@@ -20,6 +20,13 @@ const db = mysql.createConnection({
     password : process.env.RDS_PASSWORD,
     port     : process.env.RDS_PORT,
     database : process.env.RDS_DATABASE
+
+    // host: 'localhost',
+    // user: 'root',
+    // password: process.env.DB_PASSWORD,
+    // database: 'taylorswiftranker'
+
+    
 });
 
 db.connect(function(err) {

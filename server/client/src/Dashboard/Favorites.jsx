@@ -30,7 +30,7 @@ function Favorites({currUser}) {
 
 
   return (
-    <div className='align-self-start' style={{
+    <div className='containerFavorite' style={{
                                         display: 'flex',
                                         flexDirection: 'column',
                                         alignItems: 'center',

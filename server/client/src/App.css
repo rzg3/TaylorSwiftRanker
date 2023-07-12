@@ -274,6 +274,35 @@ footer {
   right: 0;
 }
 
+.rightContain {
+  margin-right: 5vh;
+}
+
+.leftContain {
+  margin-left: 5vh;
+}
+
+.followingContainer {
+  align-self: end;
+}
+
+.containerFavorite {
+  align-self: start;
+}
+
+@media screen and ( max-width: 500px ) { 
+  .dashContainer { flex-direction: column;  align-items: center !important; }
+  .followingContainer { align-self: center !important;}
+  .rightContain { margin-right: 0 !important; margin-bottom: 3vh !important; order: 2;}
+  .leftContain { margin-left: 0 !important;  margin-bottom: 3vh !important; order: 1;}
+  .containerFavorite {align-self: center !important;}
+  .searchContain { margin-top: 3vh;}
+  footer {
+    position: unset;
+    order: 3;
+  }
+}
+
 
 
   

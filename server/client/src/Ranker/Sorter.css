@@ -1,7 +1,6 @@
 .contain {
     display: flex;
     justify-content: space-evenly;
-    width: 34.5vw;
     height: 34vh;
 }
 

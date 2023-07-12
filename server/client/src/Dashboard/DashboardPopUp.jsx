@@ -13,7 +13,8 @@ const MODAL_STYLES = {
     backgroundColor: '#FFF',
     padding: '10px',
     zIndex: 1000,
-    borderRadius: '2.5vh'
+    borderRadius: '2.5vh',
+    maxHeight: '90vh'
 }
 
 const OVERLAY_STYLES = {
@@ -41,7 +42,7 @@ export default function DashboardPopUp({ open, togglePopUp }) {
         <div style={OVERLAY_STYLES} />
         <div style={MODAL_STYLES} className='contain2'>
             <div 
-                class='scrollable px-4 py-3' style={{height: '85vh'}}
+                class='scrollable px-4 py-3' style={{height: '100%'}}
             >
                 <SubmitButton text="Album Ranker" disabled={false} onClick={event => navigate('/albums')}/>
                 <SubmitButton text="Song Ranker" disabled={false} onClick={event => navigate('/songs')}/>

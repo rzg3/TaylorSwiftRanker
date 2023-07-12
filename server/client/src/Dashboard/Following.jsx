@@ -29,7 +29,7 @@ function Following(props) {
     };
     
     return (
-        <div className='align-self-end' style={{
+        <div className='followingContainer' style={{
                                             width: '50%',
                                             display: 'flex',
                                             flexDirection: 'column',
