@@ -24,7 +24,10 @@ function LandingPage() {
             </div>
 
         </div>
-          <p className='legal' style={{position: 'absolute', bottom: 0}}>All copyrighted content (i.e. album artwork) on Taylor Swift Ranker are owned by their respective owners (Taylor Swift / Record Labels).</p>
+        <footer>
+            <p className='legal'>All copyrighted content (i.e. album artwork) on Taylor Swift Ranker are owned by their respective owners (Taylor Swift / Record Labels).</p>
+        </footer>
+    
     </div>
 )
 }
