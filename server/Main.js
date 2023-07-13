@@ -147,9 +147,12 @@ app.get('/midnights', function(req, res) {
 
 
 
-
 const httpsServer = https.createServer(cred, app);
-httpsServer.listen(8443);
+httpsServer.listen(8443, () => {
+  console.log('HTTPS server is running on port 8443');
+});
 
 const httpServer = http.createServer(app);
-httpServer.listen(3000);
+httpServer.listen(3000, () => {
+  console.log('HTTP server is running on port 3000');
+});
