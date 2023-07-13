@@ -6,13 +6,21 @@ const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const Router = require('./Router');
 const dotenv = require('dotenv').config();
+const fs = require('fs');
+const https = require('https');
 
 app.use(express.static(path.join(__dirname, 'client/dist')));
 app.use(express.json());
 
 console.log('Testing server')
 
+const key = fs.readFileSync('private.key')
+const cert = fs.readFileSync('certificate.crt')
 
+const cred = {
+    key,
+    cert
+}
 // Database
 const db = mysql.createConnection({
     host     : process.env.RDS_HOSTNAME,
@@ -125,4 +133,8 @@ app.get('/midnights', function(req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
+
 app.listen(3000);
+
+const httpsServer = https.createServer(cred, app)
+httpsServer.listen(8443)
