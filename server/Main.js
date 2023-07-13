@@ -8,9 +8,20 @@ const Router = require('./Router');
 const dotenv = require('dotenv').config();
 const fs = require('fs');
 const https = require('https');
+const http = require('http');
+
+app.enable('trust proxy')
 
 app.use(express.static(path.join(__dirname, 'client/dist')));
 app.use(express.json());
+app.use(function(request, response, next) {
+
+    if (!request.secure) {
+       return response.redirect("https://" + request.headers.host + request.url);
+    }
+
+    next();
+})
 
 console.log('Testing server')
 
@@ -23,16 +34,16 @@ const cred = {
 }
 // Database
 const db = mysql.createConnection({
-    // host     : process.env.RDS_HOSTNAME,
-    // user     : process.env.RDS_USERNAME,
-    // password : process.env.RDS_PASSWORD,
-    // port     : process.env.RDS_PORT,
-    // database : process.env.RDS_DATABASE
+    host     : process.env.RDS_HOSTNAME,
+    user     : process.env.RDS_USERNAME,
+    password : process.env.RDS_PASSWORD,
+    port     : process.env.RDS_PORT,
+    database : process.env.RDS_DATABASE
 
-    host: 'localhost',
-    user: 'root',
-    password: process.env.DB_PASSWORD,
-    database: 'taylorswiftranker'
+    // host: 'localhost',
+    // user: 'root',
+    // password: process.env.DB_PASSWORD,
+    // database: 'taylorswiftranker'
 
     
 });
@@ -134,7 +145,11 @@ app.get('/midnights', function(req, res) {
 });
 
 
-app.listen(3000);
 
-const httpsServer = https.createServer(cred, app)
-httpsServer.listen(8443)
+
+
+const httpsServer = https.createServer(cred, app);
+httpsServer.listen(8443);
+
+const httpServer = http.createServer(app);
+httpServer.listen(3000);
