@@ -6,6 +6,7 @@ const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const Router = require('./Router');
 const dotenv = require('dotenv').config();
+const fs = require('fs');
 
 app.use(express.static(path.join(__dirname, 'client/dist')));
 app.use(express.json());
@@ -15,16 +16,16 @@ console.log('Testing server')
 
 // Database
 const db = mysql.createConnection({
-    host     : process.env.RDS_HOSTNAME,
-    user     : process.env.RDS_USERNAME,
-    password : process.env.RDS_PASSWORD,
-    port     : process.env.RDS_PORT,
-    database : process.env.RDS_DATABASE
+    // host     : process.env.RDS_HOSTNAME,
+    // user     : process.env.RDS_USERNAME,
+    // password : process.env.RDS_PASSWORD,
+    // port     : process.env.RDS_PORT,
+    // database : process.env.RDS_DATABASE
 
-    // host: 'localhost',
-    // user: 'root',
-    // password: process.env.DB_PASSWORD,
-    // database: 'taylorswiftranker'
+    host: 'localhost',
+    user: 'root',
+    password: process.env.DB_PASSWORD,
+    database: 'taylorswiftranker'
 
     
 });
