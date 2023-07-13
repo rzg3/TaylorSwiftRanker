@@ -11,17 +11,30 @@ const https = require('https');
 const http = require('http');
 
 app.enable('trust proxy')
-
+app.use((req, res, next) => {
+    if (req.protocol === 'http' && req.get('X-Forwarded-Proto') !== 'https') {
+      res.redirect(`https://${req.get('Host')}${req.url}`);
+    } else {
+      next();
+    }
+  });
 app.use(express.static(path.join(__dirname, 'client/dist')));
 app.use(express.json());
-app.use(function(request, response, next) {
 
-    if (!request.secure) {
-       return response.redirect("https://" + request.headers.host + request.url);
+function isSecure(req) {
+    if (req.headers['x-forwarded-proto']) {
+      return req.headers['x-forwarded-proto'] === 'https';
     }
+    return req.secure;
+  };
 
-    next();
-})
+  app.use((req, res, next) => {
+    if (!isSecure(req)) {
+      res.redirect(301, `https://${req.headers.host}${req.url}`);
+    } else {
+      next();
+    }
+  });
 
 console.log('Testing server')
 
