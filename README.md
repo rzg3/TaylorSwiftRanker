@@ -2,7 +2,7 @@
 
 Taylor Swift Ranking App Built using MySQL, Express.js, React.js, and Node.js
 
-Please check out this temporary deployment while I continue to develop new features and plan for a full release: http://ec2-34-227-59-57.compute-1.amazonaws.com:3000/
+Please check out the deployment while I continue to develop new features: https://www.taylorswiftranker.com/
 
 Features:
 - Rank albums, songs, individual albums
