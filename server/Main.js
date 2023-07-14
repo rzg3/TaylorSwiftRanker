@@ -10,53 +10,53 @@ const fs = require('fs');
 const https = require('https');
 const http = require('http');
 
-app.enable('trust proxy')
-app.use((req, res, next) => {
-    if (req.protocol === 'http' && req.get('X-Forwarded-Proto') !== 'https') {
-      res.redirect(`https://${req.get('Host')}${req.url}`);
-    } else {
-      next();
-    }
-  });
+// app.enable('trust proxy')
+// app.use((req, res, next) => {
+//     if (req.protocol === 'http' && req.get('X-Forwarded-Proto') !== 'https') {
+//       res.redirect(`https://${req.get('Host')}${req.url}`);
+//     } else {
+//       next();
+//     }
+//   });
 app.use(express.static(path.join(__dirname, 'client/dist')));
 app.use(express.json());
 
-function isSecure(req) {
-    if (req.headers['x-forwarded-proto']) {
-      return req.headers['x-forwarded-proto'] === 'https';
-    }
-    return req.secure;
-  };
+// function isSecure(req) {
+//     if (req.headers['x-forwarded-proto']) {
+//       return req.headers['x-forwarded-proto'] === 'https';
+//     }
+//     return req.secure;
+//   };
 
-  app.use((req, res, next) => {
-    if (!isSecure(req)) {
-      res.redirect(301, `https://${req.headers.host}${req.url}`);
-    } else {
-      next();
-    }
-  });
+//   app.use((req, res, next) => {
+//     if (!isSecure(req)) {
+//       res.redirect(301, `https://${req.headers.host}${req.url}`);
+//     } else {
+//       next();
+//     }
+//   });
 
 console.log('Testing server')
 
-const key = fs.readFileSync('private.key')
-const cert = fs.readFileSync('certificate.crt')
+// const key = fs.readFileSync('private.key')
+// const cert = fs.readFileSync('certificate.crt')
 
-const cred = {
-    key,
-    cert
-}
+// const cred = {
+//     key,
+//     cert
+// }
 // Database
 const db = mysql.createConnection({
-    host     : process.env.RDS_HOSTNAME,
-    user     : process.env.RDS_USERNAME,
-    password : process.env.RDS_PASSWORD,
-    port     : process.env.RDS_PORT,
-    database : process.env.RDS_DATABASE
+    // host     : process.env.RDS_HOSTNAME,
+    // user     : process.env.RDS_USERNAME,
+    // password : process.env.RDS_PASSWORD,
+    // port     : process.env.RDS_PORT,
+    // database : process.env.RDS_DATABASE
 
-    // host: 'localhost',
-    // user: 'root',
-    // password: process.env.DB_PASSWORD,
-    // database: 'taylorswiftranker'
+    host: 'localhost',
+    user: 'root',
+    password: process.env.DB_PASSWORD,
+    database: 'taylorswiftranker'
 
     
 });
@@ -160,10 +160,10 @@ app.get('/midnights', function(req, res) {
 
 
 
-const httpsServer = https.createServer(cred, app);
-httpsServer.listen(8443, () => {
-  console.log('HTTPS server is running on port 8443');
-});
+// const httpsServer = https.createServer(cred, app);
+// httpsServer.listen(8443, () => {
+//   console.log('HTTPS server is running on port 8443');
+// });
 
 const httpServer = http.createServer(app);
 httpServer.listen(3000, () => {
