@@ -74,7 +74,6 @@ function Ranker(props) {
         }
     };
 
-
     return (
         <DndContext
             collisionDetection={closestCenter}
@@ -82,31 +81,51 @@ function Ranker(props) {
         >
             
             <Container className="p-3" style={{"width": "50%"}} align="center">
-                <h3 className='m-4'>Rank Taylor Swift's {props.rankDisplay}</h3>
-                <div className='d-flex justify-content-center flex-wrap'>
-                <SortableContext
-                    items={albums}
-                    strategy={rectSortingStrategy}
-                >
-                    {/* We need components that use the useSortable hook */}
-                    {albums.map((album, index) => 
-                      <SortableItem
-                      key={props.isAlbum ? album.album_name : album.song_name}
-                      id={album}
-                      display={props.isAlbum ? album.album_name : album.song_name}
-                      cover_art={props.isAlbum ? album.album_name : album.cover_art}
-                      youtube_link={album.youtube_link}
-                      rank={index + 1}
-                      />
-                    )}
-                </SortableContext>
-                </div>
-                <div className='m-3 d-flex flex-column align-items-center'> 
                 <SorterPopUp open={openSorter} onClose={() => setOpenSorter(false)} albums={albums} setAlbums={setAlbums} loaded={loaded} isAlbum={props.isAlbum}/>
-                <SubmitButton text="Save Rankings" disabled={false} onClick={handleSave}/>
-                <button className='btn btn-outline-primary submitButton' onClick={() => setOpenSorter(true)}>Open Sorter</button> 
-                  <SubmitButton className="custom-padding" text="Return to Dashboard" disabled={false} onClick={event => navigate('/dashboard')}/>
-                 
+                <h3 className='m-4'>Rank Taylor Swift's {props.rankDisplay}</h3>
+
+
+                <div className='mt-3 mb-3 d-flex justify-content-center align-items-center' >
+                    
+                    <button className='btn btn-outline-primary submitButton smallBtn' onClick={event => navigate('/dashboard')}>Return</button> 
+                    <button className='btn btn-outline-primary submitButton smallBtn' onClick={handleSave}>Save Rankings</button> 
+                    <button className='btn btn-outline-primary submitButton smallBtn' onClick={() => setOpenSorter(true)}>Open Sorter</button> 
+              
+                </div>
+                <div style={{     
+                              border: '3.5px dashed rgba(0,0,0,.5)',
+                              borderRadius: '1.5vh',
+                            }}>
+                  
+                  <h5 className='mt-2'
+                    style={{
+                      fontStyle: 'italic',
+                      opacity: 0.5,
+                      margin: 'auto',
+                    }}
+                  >
+                      Drag and Drop
+                  </h5>
+
+                  
+                  <div className='d-flex justify-content-center flex-wrap'>
+                  <SortableContext
+                      items={albums}
+                      strategy={rectSortingStrategy}
+                  >
+                      {/* We need components that use the useSortable hook */}
+                      {albums.map((album, index) => 
+                        <SortableItem
+                        key={props.isAlbum ? album.album_name : album.song_name}
+                        id={album}
+                        display={props.isAlbum ? album.album_name : album.song_name}
+                        cover_art={props.isAlbum ? album.album_name : album.cover_art}
+                        youtube_link={album.youtube_link}
+                        rank={index + 1}
+                        />
+                      )}
+                  </SortableContext>
+                  </div>
                 </div>
                 
             </Container>

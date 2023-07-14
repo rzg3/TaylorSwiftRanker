@@ -93,6 +93,7 @@ h3 {
     cursor: pointer;
 }
 
+
 .btn:hover {
   background-color: #923c81 !important;
   color: #FAF9F6 !important;
@@ -101,6 +102,12 @@ h3 {
 .btn:active {
   background-color: #923c81 !important;
   color: #FAF9F6 !important;
+}
+
+.smallBtn {
+  min-width: 160px !important;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Suspense  } from 'react';
 import { observer } from 'mobx-react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navigate, useNavigate, useLocation  } from 'react-router-dom';
@@ -71,7 +71,7 @@ class App extends React.Component{
   }
 
   render() {
-
+    
     if (UserStore.loading){
       return (
         <div className="app">
@@ -128,6 +128,7 @@ class App extends React.Component{
                   element={
                     UserStore.isLoggedIn || UserStore.isDevelopment 
                     ? 
+   
                       <Ranker 
                         getRoute="/getRankings" 
                         postRoute="saveRankings"
@@ -144,6 +145,7 @@ class App extends React.Component{
                   element={
                     UserStore.isLoggedIn || UserStore.isDevelopment 
                     ? 
+
                       <Ranker 
                         getRoute="/getSongRankings" 
                         postRoute="saveSongRankings"

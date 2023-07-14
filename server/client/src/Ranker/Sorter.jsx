@@ -114,6 +114,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
 
     if (!open) return null;
 
+
     return ReactDOM.createPortal(
         <>
         <div style={OVERLAY_STYLES} />
