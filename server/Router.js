@@ -407,6 +407,7 @@ class Router {
         'FROM album_ranking AS ar ' +
         'LEFT JOIN albums AS a ON ar.album_id = a.album_id ' +
         'GROUP BY ar.album_id ' +
+        'HAVING SUM(ar.`rank`) != 0 '
         'ORDER BY SUM(ar.`rank`)';
       
       const query2 = 'SELECT s.song_name, s.youtube_link, s.cover_art, sr.song_id, SUM(sr.album_song_rank)' +
@@ -414,12 +415,14 @@ class Router {
         'LEFT JOIN songs AS s ON sr.song_id = s.song_id ' +
         'WHERE s.album_id = ? ' +
         'GROUP BY sr.song_id ' +
+        'HAVING SUM(sr.album_song_rank) != 0 ' +
         'ORDER BY SUM(sr.album_song_rank)';
       
       const query3 = 'SELECT s.song_name, s.youtube_link, s.cover_art, sr.song_id, SUM(sr.`rank`)' +
         'FROM song_ranking AS sr ' +
         'LEFT JOIN songs AS s ON sr.song_id = s.song_id ' +
         'GROUP BY sr.song_id ' +
+        'HAVING SUM(sr.`rank`) != 0 ' +
         'ORDER BY SUM(sr.`rank`)';
   
         db.query(query, (error, albumResults) => {
@@ -508,7 +511,7 @@ class Router {
         'FROM song_ranking as sr ' +
         'LEFT JOIN songs AS s ON sr.song_id = s.song_id ' +
         'LEFT JOIN user as u ON sr.user_id = u.id ' +
-        'WHERE u.username = ? AND s.album_id = ? AND sr.album_song_rank IS NOT NULL' +
+        'WHERE u.username = ? AND s.album_id = ? AND sr.album_song_rank IS NOT NULL ' +
         'ORDER BY sr.album_song_rank';
       
       const query3 = 'SELECT s.song_name, s.youtube_link, s.cover_art ' +
