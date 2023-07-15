@@ -149,7 +149,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
 
     const handleResort = () => {
         setSortingComplete(false);
-        setBattleCcounter(0)
+        setBattleCcounter(1)
         if (isSongRanking) {
             setSongSorterChoice(null)
         }
@@ -159,7 +159,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
         if (sortedArr.length === albums.length) {
             setAlbums(sortedArr);
         }
-        setBattleCcounter(0)
+        setBattleCcounter(1)
         setSortingComplete(false);
         if (isSongRanking) {
             setSongSorterChoice(null)
@@ -205,11 +205,12 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
         <>
         <div style={OVERLAY_STYLES} />
         <div style={MODAL_STYLES} className='contain2'>
+            {!sortingComplete ?
+            <>
             <h2 className='custom-margin'>Choose Your Favorite</h2>
             <div className="contain">
             {leftChoice && rightChoice ? (
 
-                !sortingComplete ? (
 
                 <>
                 <div className="leftContent">
@@ -237,9 +238,13 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
                     <button className="btn-square-md" onClick={() => chooseRandom()}>
                         Choose Random
                     </button>
-                    <h5>Battle #{battleCounter}</h5>
-                    <h5>Max Battles: {songSorterChoice ? Math.trunc(albums.length * Math.log2(albums.length)) :
-                                      Math.trunc(albums.length * Math.log2(preSortedAlbums.length))  }</h5>
+                    <div style={{textAlign: 'center'}}>
+                        <h5>Battle #{battleCounter}</h5>
+                        <h5>Average Battles: {songSorterChoice ? Math.trunc(.74 * (albums.length * Math.log2(albums.length))) :
+                                        Math.trunc(.74 * (albums.length * Math.log2(preSortedAlbums.length)))}</h5>
+                        <h5>Max Battles: {songSorterChoice ? Math.trunc(albums.length * Math.log2(albums.length)) :
+                                        Math.trunc(albums.length * Math.log2(preSortedAlbums.length))  }</h5>
+                    </div>
                 </div>
                 <div className="rightContent">
                     <div className="art">
@@ -262,19 +267,32 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
                     </div>
                 </div>
                 </>
-
-            ): <div>
-                <button id='btn2' className="btn btn-outline-primary submitButton" onClick={handleResort}>
-                Sort Again
-                </button>
-                <button id='btn2' className="btn btn-outline-primary submitButton" onClick={handleClose}>
-                See New Rankings
-                </button>
-            </div>
-            ) : (
+            ) :
                 <div class='loading'>Loading...</div>
-            )}
+           
+            
+            }
             </div>
+            </>
+            :
+            <div className='contain'>
+                <div className="d-flex flex-column align-items-center justify-content-between">
+                    <h3>Completed Sorting!</h3>
+                    <img 
+                        className="thumbsupart" 
+                        src={`taylorswiftthumbsup.gif`} 
+                        alt="Thumbsup Art"  
+                    />
+                    <div className='d-flex justify-content-around'>
+                        <button id='btn2' className="m-2 btn btn-outline-primary submitButton" onClick={handleResort}>
+                        Sort Again
+                        </button>
+                        <button id='btn2' className="m-2 btn btn-outline-primary submitButton" onClick={handleClose}>
+                        See New Rankings
+                        </button>
+                    </div>
+                </div>
+            </div>}
             {!sortingComplete ? <button id='btn2' className="btn btn-outline-primary submitButton rankButton"  onClick={handleClose}>
                 Rank Manually
             </button> : ''}
