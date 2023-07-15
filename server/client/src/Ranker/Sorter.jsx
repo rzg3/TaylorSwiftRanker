@@ -150,7 +150,9 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
     const handleResort = () => {
         setSortingComplete(false);
         setBattleCcounter(0)
-        setSongSorterChoice(null)
+        if (isSongRanking) {
+            setSongSorterChoice(null)
+        }
         setSortedArr([])
     }
     const handleClose = () => {
@@ -159,7 +161,9 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
         }
         setBattleCcounter(0)
         setSortingComplete(false);
-        setSongSorterChoice(null)
+        if (isSongRanking) {
+            setSongSorterChoice(null)
+        }
         onClose();
     };
 
