@@ -81,7 +81,7 @@ function Ranker(props) {
         >
             
             <Container className="p-3" style={{"width": "50%"}} align="center">
-                <SorterPopUp open={openSorter} onClose={() => setOpenSorter(false)} albums={albums} setAlbums={setAlbums} loaded={loaded} isAlbum={props.isAlbum}/>
+                <SorterPopUp open={openSorter} onClose={() => setOpenSorter(false)} albums={albums} setAlbums={setAlbums} loaded={loaded} isAlbum={props.isAlbum} isSongRanking={props.isSongRanking}/>
                 <h3 className='m-4'>Rank Taylor Swift's {props.rankDisplay}</h3>
 
 

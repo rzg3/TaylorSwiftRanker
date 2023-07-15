@@ -151,6 +151,7 @@ class App extends React.Component{
                         postRoute="saveSongRankings"
                         isAlbum={false}
                         rankDisplay='Songs'
+                        isSongRanking={true}
                       />  
                     : 
                       <Navigate to="/" replace={true} />

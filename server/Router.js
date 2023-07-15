@@ -22,6 +22,7 @@ class Router {
     this.getSongRankings(app,db);
     this.saveSongRankings(app,db);
     this.getFavorites(app,db);
+    this.getPreSorted(app,db);
   }
 
   register(app, db) {
@@ -709,6 +710,71 @@ class Router {
               res.json(favorites);
             }
           })
+        }
+      });
+    });
+  }
+
+  getPreSorted(app, db) {
+    app.get('/getPreSorted', (req, res) => {
+      const userId = req.session.userID;
+  
+      const query = `
+        SELECT 
+          s.song_name,
+          s.youtube_link,
+          s.cover_art,
+          sr.album_song_rank,
+          s.album_id,
+          sr.album_song_rank
+        FROM songs as s
+        LEFT JOIN song_ranking AS sr ON s.song_id = sr.song_id AND sr.user_id = ?
+        ORDER BY s.album_id ASC, COALESCE(sr.album_song_rank, s.song_id) ASC
+      `;
+  
+      db.query(query, [userId], (error, results) => {
+        if (error) {
+          console.error('Error fetching rankings:', error);
+          res.status(500).send('Internal Server Error');
+        } else {
+          const sortedLists = [];
+          let currentAlbumId = null;
+          let currentList = [];
+  
+          for (const row of results) {
+            if (row.album_id !== currentAlbumId) {
+              // Start a new inner list for each album_id
+              if (currentList.length > 0) {
+                sortedLists.push(currentList);
+              }
+              currentList = [];
+              currentAlbumId = row.album_id;
+            }
+  
+            if (row.album_song_rank !== null) {
+              currentList.push({
+                song_name: row.song_name,
+                youtube_link: row.youtube_link,
+                cover_art: row.cover_art,
+              });
+            } else {
+              // Create a single-element inner list for songs without album_song_rank
+              sortedLists.push([
+                {
+                  song_name: row.song_name,
+                  youtube_link: row.youtube_link,
+                  cover_art: row.cover_art,
+                },
+              ]);
+            }
+          }
+  
+          // Add the last inner list
+          if (currentList.length > 0) {
+            sortedLists.push(currentList);
+          }
+  
+          res.json(sortedLists);
         }
       });
     });
