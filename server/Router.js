@@ -508,7 +508,7 @@ class Router {
         'FROM song_ranking as sr ' +
         'LEFT JOIN songs AS s ON sr.song_id = s.song_id ' +
         'LEFT JOIN user as u ON sr.user_id = u.id ' +
-        'WHERE u.username = ? AND s.album_id = ? ' +
+        'WHERE u.username = ? AND s.album_id = ? AND sr.album_song_rank IS NOT NULL' +
         'ORDER BY sr.album_song_rank';
       
       const query3 = 'SELECT s.song_name, s.youtube_link, s.cover_art ' +
