@@ -5,10 +5,12 @@ import { DndContext, closestCenter } from '@dnd-kit/core';
 import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
 import { useState, useEffect } from 'react';
 import { SortableItem } from './SortableItem';
-import SubmitButton from '../SubmitButton';
 import SorterPopUp from './Sorter'
 
+
+
 function Ranker(props) {
+    
 
     const getRoute = props.getRoute
     const postRoute = props.postRoute
@@ -16,6 +18,23 @@ function Ranker(props) {
     const [openSorter, setOpenSorter] = useState(true);
     const [loaded, setLoaded] = useState(false);
     const navigate = useNavigate();
+    const [isSaved, setIsSaved] = useState(true)
+  
+    const handleReturn = () => {
+
+      if (!isSaved) {
+        if (window.confirm('Rankings not saved, are you sure you want to leave')) {
+          setIsSaved(true);
+          navigate('/')
+        }
+      }
+      else {
+        console.log(isSaved)
+        navigate('/');
+        
+      }
+      
+    }
 
     useEffect(() => {
       fetchRankings();
@@ -51,12 +70,15 @@ function Ranker(props) {
         });
     
         if (response.ok) {
-          console.log('Rankings saved successfully!');
+          console.log(isSaved)
+          alert('Rankings saved successfully!');
+          setIsSaved(true);
+          console.log(isSaved)
         } else {
-          console.error('Error saving rankings:', response.status);
+          alert('Error saving rankings:', response.status);
         }
       } catch (error) {
-        console.error('Error saving rankings:', error);
+        alert('Error saving rankings:', error);
       }
     };
     
@@ -66,6 +88,7 @@ function Ranker(props) {
 
         if (active.id !== over.id) {
             setAlbums((items) => {
+            setIsSaved(false)
             const activeIndex = items.indexOf(active.id);
             const overIndex = items.indexOf(over.id);
 
@@ -75,19 +98,28 @@ function Ranker(props) {
     };
 
     return (
+       
         <DndContext
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
         >
-            
             <Container className="p-3" style={{"width": "50%"}} align="center">
-                <SorterPopUp open={openSorter} onClose={() => setOpenSorter(false)} albums={albums} setAlbums={setAlbums} loaded={loaded} isAlbum={props.isAlbum} isSongRanking={props.isSongRanking}/>
+                <SorterPopUp 
+                  open={openSorter} 
+                  onClose={() => setOpenSorter(false)} 
+                  albums={albums} 
+                  setAlbums={setAlbums} 
+                  loaded={loaded} 
+                  isAlbum={props.isAlbum} 
+                  isSongRanking={props.isSongRanking}
+                  setIsSaved={setIsSaved}
+                />
                 <h3 className='m-4'>Rank Taylor Swift's {props.rankDisplay}</h3>
 
 
                 <div className='mt-3 mb-3 d-flex justify-content-center align-items-center' >
                     
-                    <button className='btn btn-outline-primary submitButton smallBtn' onClick={event => navigate('/dashboard')}>Return</button> 
+                    <button className='btn btn-outline-primary submitButton smallBtn' onClick={handleReturn}>Return</button> 
                     <button className='btn btn-outline-primary submitButton smallBtn' onClick={handleSave}>Save Rankings</button> 
                     <button className='btn btn-outline-primary submitButton smallBtn' onClick={() => setOpenSorter(true)}>Open Sorter</button> 
               

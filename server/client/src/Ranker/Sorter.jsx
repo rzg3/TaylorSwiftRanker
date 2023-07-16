@@ -29,7 +29,7 @@ const OVERLAY_STYLES = {
 
 export const stateContext = React.createContext({})
 
-export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, isAlbum, isSongRanking }) {
+export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, isAlbum, isSongRanking, setIsSaved }) {
     const [leftChoice, setLeftChoice] = useState(null);
     const [rightChoice, setRightChoice] = useState(null);
     const userChoiceRef = useRef(null);
@@ -158,6 +158,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
     const handleClose = () => {
         if (sortedArr.length === albums.length) {
             setAlbums(sortedArr);
+            setIsSaved(false);
         }
         setBattleCcounter(1)
         setSortingComplete(false);
