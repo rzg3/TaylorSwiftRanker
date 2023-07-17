@@ -160,11 +160,13 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
             setAlbums(sortedArr);
             setIsSaved(false);
         }
+
         setBattleCcounter(1)
         setSortingComplete(false);
         if (isSongRanking) {
             setSongSorterChoice(null)
         }
+        setSortedArr([])
         onClose();
     };
 
