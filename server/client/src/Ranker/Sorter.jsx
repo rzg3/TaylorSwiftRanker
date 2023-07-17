@@ -66,7 +66,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
         
             while (userChoiceRef.current === null) {
                 if (controller.signal.aborted) {
-                    console.log('wweee')
+            
                     return []
                 }
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -122,12 +122,8 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
             const controller = new AbortController(); // Create a new instance of AbortController.
             abortControllerRef.current = controller;
             if (open && !sortingComplete && songSorterChoice === true) {
-                console.log('useEffect called')
-                 console.log(albums)
                 const sortedAlbums = await mergeSort(albums, controller);
-                console.log('testsort', sortedAlbums)
                 if (sortedAlbums.length === albums.length) {
-                    console.log(sortedAlbums)
                     setSortedArr(sortedAlbums);
                     setBattleCcounter(1)
                     setSortingComplete(true);
