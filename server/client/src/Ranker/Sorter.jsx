@@ -27,8 +27,6 @@ const OVERLAY_STYLES = {
     zIndex: 1000
 }
 
-export const stateContext = React.createContext({})
-
 export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, isAlbum, isSongRanking, setIsSaved }) {
     const [leftChoice, setLeftChoice] = useState(null);
     const [rightChoice, setRightChoice] = useState(null);
@@ -39,6 +37,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
     const [songSorterChoice, setSongSorterChoice] = useState(!isSongRanking ? true : null);
     const [preSortedAlbums, setPreSortedAlbums] = useState([])
     const [preLoaded, setPreLoaded] = useState(isSongRanking ? false : true)
+    const abortControllerRef = useRef(null);
 
     const fetchPreSorted = async () => {
         try {
@@ -57,34 +56,37 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
         }
       };
     
-    const merge = async (left, right) => {
+    const merge = async (left, right, controller) => {
         const merged = [];
-      
+        
         while (left.length && right.length) {
             setLeftChoice(left[0]);
             setRightChoice(right[0]);
             userChoiceRef.current = null;
         
             while (userChoiceRef.current === null) {
+                if (controller.signal.aborted) {
+                    console.log('wweee')
+                    return []
+                }
                 await new Promise((resolve) => setTimeout(resolve, 100));
             }
         
             const chosenAlbum = userChoiceRef.current;
-            
+        
             if (chosenAlbum === left[0]) {
-                merged.push(left.shift());
+            merged.push(left.shift());
             } else {
-                merged.push(right.shift());
+            merged.push(right.shift());
             }
-        }
-      
-        // console.log([ ...merged, ...left, ...right ]);
-        return [ ...merged, ...left, ...right ]
-      };
-
-    const mergeSort2 = async (arr) => {
+    }
+    
+    return [...merged, ...left, ...right];
+    };
+    
+    const mergeSort2 = async (arr, controller) => {
         if (arr.length === 0) {
-            return arr
+            return arr;
         }
         if (arr.length === 1) {
             return arr[0];
@@ -93,11 +95,11 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
         const mid = Math.floor(arr.length / 2);
         const left = arr.slice(0, mid);
         const right = arr.slice(mid);
-        
-        return await merge(await mergeSort2(left), await mergeSort2(right));
+    
+    return await merge(await mergeSort2(left, controller), await mergeSort2(right, controller), controller);
     };
-
-    const mergeSort = async (arr) => {
+    
+    const mergeSort = async (arr, controller) => {
         if (arr.length <= 1) {
             return arr;
         }
@@ -106,7 +108,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
         const left = arr.slice(0, mid);
         const right = arr.slice(mid);
         
-        return await merge(await mergeSort(left), await mergeSort(right));
+        return await merge(await mergeSort(left, controller), await mergeSort(right, controller), controller);
     };
 
     const handleUserChoice = (chosenAlbum) => {
@@ -117,9 +119,15 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
     useEffect(() => {
         
         const sortAlbums = async () => {
+            const controller = new AbortController(); // Create a new instance of AbortController.
+            abortControllerRef.current = controller;
             if (open && !sortingComplete && songSorterChoice === true) {
-                const sortedAlbums = await mergeSort(albums);
+                console.log('useEffect called')
+                 console.log(albums)
+                const sortedAlbums = await mergeSort(albums, controller);
+                console.log('testsort', sortedAlbums)
                 if (sortedAlbums.length === albums.length) {
+                    console.log(sortedAlbums)
                     setSortedArr(sortedAlbums);
                     setBattleCcounter(1)
                     setSortingComplete(true);
@@ -131,7 +139,7 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
                 }
                 if (preLoaded) {
   
-                    const sortedAlbums = await mergeSort2(preSortedAlbums);
+                    const sortedAlbums = await mergeSort2(preSortedAlbums, controller);
                     if (sortedAlbums.length === albums.length) {
 
                         setSortedArr(sortedAlbums);
@@ -144,6 +152,12 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
         if (loaded && (songSorterChoice !== null)) {
             sortAlbums();
         }
+        return () => {
+            // Cleanup function to abort the recursive calls when the component is unmounted
+            if (abortControllerRef.current) {
+                abortControllerRef.current.abort(); // Abort the ongoing tasks when the component is unmounted.
+            }
+          };
     }, [open, albums, sortedArr, songSorterChoice, preLoaded]);
       
 
@@ -161,12 +175,17 @@ export default function SorterPopUp({ open, onClose, albums, setAlbums, loaded, 
             setIsSaved(false);
         }
 
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort(); // Abort any ongoing tasks when the close button is clicked.
+          }
+        
         setBattleCcounter(1)
         setSortingComplete(false);
         if (isSongRanking) {
             setSongSorterChoice(null)
         }
         setSortedArr([])
+        abortControllerRef.current.abort();
         onClose();
     };
 
