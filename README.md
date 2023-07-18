@@ -9,4 +9,5 @@ Features:
 - Search other users' rankings, follow other users, see global rankings
 - Create account / login
 - Rank by choosing between two choices until sorted (Merge Sort Algorithm) or manually ranking
+- Hosted on AWS EC2 Server with HTTPS (SSL Certificate) and Custom Domain
   
