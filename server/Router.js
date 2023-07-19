@@ -408,7 +408,7 @@ class Router {
         'LEFT JOIN albums AS a ON ar.album_id = a.album_id ' +
         'GROUP BY ar.album_id ' +
         'HAVING SUM(ar.`rank`) != 0 ' +
-        'ORDER BY SUM(ar.`rank)';
+        'ORDER BY SUM(ar.`rank`)';
       
       const query2 = 'SELECT s.song_name, s.youtube_link, s.cover_art, sr.song_id, SUM(sr.album_song_rank)' +
         'FROM song_ranking AS sr ' +
