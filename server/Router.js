@@ -407,8 +407,8 @@ class Router {
         'FROM album_ranking AS ar ' +
         'LEFT JOIN albums AS a ON ar.album_id = a.album_id ' +
         'GROUP BY ar.album_id ' +
-        'HAVING SUM(ar.`rank`) != 0 '
-        'ORDER BY SUM(ar.`rank`)';
+        'HAVING SUM(ar.`rank`) != 0 ' +
+        'ORDER BY SUM(ar.`rank)';
       
       const query2 = 'SELECT s.song_name, s.youtube_link, s.cover_art, sr.song_id, SUM(sr.album_song_rank)' +
         'FROM song_ranking AS sr ' +
@@ -430,6 +430,7 @@ class Router {
             console.error('Error fetching album rankings:', error);
             res.status(500).send('Internal Server Error');
           } else {
+            console.log(albumResults)
   
             const AlbumSongRankings = [];
   
