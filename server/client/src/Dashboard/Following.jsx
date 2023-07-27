@@ -39,7 +39,7 @@ function Following(props) {
         >
             <h3>Following</h3>
             <div 
-                class='scrollable d-inline-flex p-2  flex-column align-items-center flex-wrap justify-content-center' 
+                class='scrollable d-inline-flex p-2  flex-column align-items-center justify-content-center' 
                 style={{
                 border: '3.5px dashed rgba(0,0,0,.5)', borderRadius: '1.5vh' ,boxSizing: 'border-box', width: '25vh'
                 }}
