@@ -10,6 +10,7 @@ import Following from './Following';
 import DashboardPopUp from './DashboardPopUp';
 import Favorites from './Favorites';
 import AboutButton from './AboutButton';
+import GlobalRankingsButton from './GlobalRankingsButton';
 
 class Dashboard extends React.Component {
 
@@ -63,7 +64,7 @@ class Dashboard extends React.Component {
             <UserSearch />
           </div>
           <SubmitButton text="Rank Now" disabled={false} onClick={this.togglePopUp}/>
-          <SubmitButton text="Global Rankings" disabled={false} onClick={event => window.location.href='/globalrankings'}/>
+          <GlobalRankingsButton />
           <SubmitButton text="Log out" disabled={false} onClick={this.handleLogout} />
         </div>
         <div className='centered rightContain' style={{ width: '50%'}}>
