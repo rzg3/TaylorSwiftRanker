@@ -9,6 +9,7 @@ import '../App.css'
 import Following from './Following';
 import DashboardPopUp from './DashboardPopUp';
 import Favorites from './Favorites';
+import AboutButton from './AboutButton';
 
 class Dashboard extends React.Component {
 
@@ -68,7 +69,9 @@ class Dashboard extends React.Component {
         <div className='centered rightContain' style={{ width: '50%'}}>
           <Following username={UserStore.username}/>
         </div>
+        
         <footer>
+        <AboutButton />
           <p className='legal' >All copyrighted content (i.e. album artwork) on Taylor Swift Ranker are owned by their respective owners (Taylor Swift / Record Labels).</p>
         </footer>
         </div>

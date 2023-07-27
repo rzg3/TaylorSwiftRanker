@@ -45,7 +45,7 @@ function Rankings(props) {
         <Container className="p-2 d-flex flex-column justify-content-center align-items-center" align="center"> 
         <div className='d-inline-flex flex-column justify-content-between align-content-center flex-wrap m-5' style={{boxSizing: 'border-box', width: 'calc(100% - 6rem)'}}>
         <div className='mb-3' style={{boxSizing: 'border-box', width: '100%'}}>
-          <h2>{props.display} Rankings</h2>
+          <h2 style={{textAlign: 'center'}}>{props.display} Rankings</h2>
           <button className='btn btn-outline-primary submitButton' style={{minWidth: '80px'}} onClick={event => navigate('/dashboard')}>Return</button> 
           {props.followButton ? (
             <button style={{minWidth: '160px', marginLeft: '10px'}} className="btn btn-outline-primary submitButton" onClick={ () => props.followUnfollow()}>

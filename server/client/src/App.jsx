@@ -3,8 +3,6 @@ import { observer } from 'mobx-react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navigate, useNavigate, useLocation  } from 'react-router-dom';
 import UserStore from './stores/UserStore';
-import LoginForm from './LoginForm';
-import SubmitButton from './SubmitButton';
 import './App.css'
 import Dashboard from './Dashboard/Dashboard';
 import Ranker from './Ranker/Ranker';
@@ -13,6 +11,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Rankings from './Rankings';
 import UserProfile from './UserProfile';
 import LandingPage from './LandingPage';
+import About from './About/About';
 
 class App extends React.Component{
 
@@ -318,6 +317,10 @@ class App extends React.Component{
                   element={
                     UserStore.isLoggedIn ? <UserProfile currUser={UserStore.username}/> : <Navigate to="/" replace={true} />
                   }/>
+
+                <Route 
+                  path="/about" 
+                  element={<About />}/>
               </Routes>
             </Router>
           </div>

@@ -93,6 +93,10 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
+app.get('/about', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+});
+
 app.get('/dashboard', function(req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
