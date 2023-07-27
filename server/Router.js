@@ -403,34 +403,34 @@ class Router {
   getGlobalRankings(app, db) {
     app.get('/getGlobalRankings', (req, res) => {
   
-      const query = 'SELECT a.album_name, a.youtube_link, ar.album_id, SUM(ar.`rank`)' +
+      const query = 'SELECT a.album_name, a.youtube_link, ar.album_id, AVG(ar.`rank`)' +
         'FROM album_ranking AS ar ' +
         'LEFT JOIN albums AS a ON ar.album_id = a.album_id ' +
         'GROUP BY ar.album_id ' +
         'HAVING SUM(ar.`rank`) != 0 ' +
-        'ORDER BY SUM(ar.`rank`)';
+        'ORDER BY AVG(ar.`rank`)';
       
-      const query2 = 'SELECT s.song_name, s.youtube_link, s.cover_art, sr.song_id, SUM(sr.album_song_rank)' +
+      const query2 = 'SELECT s.song_name, s.youtube_link, s.cover_art, sr.song_id, AVG(sr.album_song_rank)' +
         'FROM song_ranking AS sr ' +
         'LEFT JOIN songs AS s ON sr.song_id = s.song_id ' +
         'WHERE s.album_id = ? ' +
         'GROUP BY sr.song_id ' +
         'HAVING SUM(sr.album_song_rank) != 0 ' +
-        'ORDER BY SUM(sr.album_song_rank)';
+        'ORDER BY AVG(sr.album_song_rank)';
       
-      const query3 = 'SELECT s.song_name, s.youtube_link, s.cover_art, sr.song_id, SUM(sr.`rank`)' +
+      const query3 = 'SELECT s.song_name, s.youtube_link, s.cover_art, sr.song_id, AVG(sr.`rank`)' +
         'FROM song_ranking AS sr ' +
         'LEFT JOIN songs AS s ON sr.song_id = s.song_id ' +
         'GROUP BY sr.song_id ' +
         'HAVING SUM(sr.`rank`) != 0 ' +
-        'ORDER BY SUM(sr.`rank`)';
+        'ORDER BY AVG(sr.`rank`)';
   
         db.query(query, (error, albumResults) => {
           if (error) {
             console.error('Error fetching album rankings:', error);
             res.status(500).send('Internal Server Error');
           } else {
-            console.log(albumResults)
+  
   
             const AlbumSongRankings = [];
   
