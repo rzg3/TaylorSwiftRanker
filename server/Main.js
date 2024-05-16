@@ -46,29 +46,28 @@ console.log('Testing server')
 //     cert
 // }
 // Database
-const db = mysql.createConnection({
-    // host     : process.env.RDS_HOSTNAME,
-    // user     : process.env.RDS_USERNAME,
-    // password : process.env.RDS_PASSWORD,
-    // port     : process.env.RDS_PORT,
-    // database : process.env.RDS_DATABASE
-
-    host: 'localhost',
-    user: 'root',
-    password: process.env.DB_PASSWORD,
-    database: 'taylorswiftranker'
+var db = mysql.createConnection({
+    host     : process.env.RDS_HOSTNAME,
+    user     : process.env.RDS_USERNAME,
+    password : process.env.RDS_PASSWORD,
+    port     : process.env.RDS_PORT,
+    database : process.env.RDS_DATABASE
+    // host: 'localhost',
+    // user: 'root',
+    // password: process.env.DB_PASSWORD,
+    // database: 'taylorswiftranker'
 
     
 });
-
+console.log('Before connecting to the database.');
 db.connect(function(err) {
     if (err) {
-      console.error('Database connection failed: ' + err.stack);
-      return;
+        console.error('Database connection failed: ' + err.stack);
+        return;
     }
-  
     console.log('Connected to database.');
-  });
+});
+console.log('After connecting to the database.');
 
 const sessionStore = new MySQLStore({
     expiration:(1825 * 86400 * 1000),

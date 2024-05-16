@@ -56,6 +56,7 @@ export default function DashboardPopUp({ open, togglePopUp }) {
                 <SubmitButton text="folklore Ranker" disabled={false} onClick={event => navigate('/folklore')}/>
                 <SubmitButton text="evermore Ranker" disabled={false} onClick={event => navigate('/evermore')}/>
                 <SubmitButton text="Midnights Ranker" disabled={false} onClick={event => navigate('/midnights')}/>
+                <SubmitButton text="THE TORTURED POETS DEPARTMENT Ranker" disabled={false} onClick={event => navigate('/thetorturedpoetsdepartment')} style={{ wordWrap: 'break-word' }} />
                 <br />
                 <SubmitButton text="Back to Dashboard" disabled={false} onClick={togglePopUp}/>
             </div>

@@ -311,6 +311,21 @@ class App extends React.Component{
                       <Navigate to="/" replace={true} />
                   } 
                 />
+                <Route 
+                  path="/thetorturedpoetsdepartment" 
+                  element={
+                    UserStore.isLoggedIn || UserStore.isDevelopment 
+                    ? 
+                      <Ranker 
+                        getRoute="/getAlbumSongRankings?album_id=11" 
+                        postRoute="saveAlbumSongRankings"
+                        isAlbum={false}
+                        rankDisplay='THE TORTURED POETS DEPARTMENT Album'
+                      /> 
+                    : 
+                      <Navigate to="/" replace={true} />
+                  } 
+                />
 
                 <Route 
                   path="/user/:username" 
