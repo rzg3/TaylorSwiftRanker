@@ -47,15 +47,15 @@ console.log('Testing server')
 // }
 // Database
 var db = mysql.createConnection({
-    host     : process.env.RDS_HOSTNAME,
-    user     : process.env.RDS_USERNAME,
-    password : process.env.RDS_PASSWORD,
-    port     : process.env.RDS_PORT,
-    database : process.env.RDS_DATABASE
-    // host: 'localhost',
-    // user: 'root',
-    // password: process.env.DB_PASSWORD,
-    // database: 'taylorswiftranker'
+    // host     : process.env.RDS_HOSTNAME,
+    // user     : process.env.RDS_USERNAME,
+    // password : process.env.RDS_PASSWORD,
+    // port     : process.env.RDS_PORT,
+    // database : process.env.RDS_DATABASE
+    host: 'localhost',
+    user: 'root',
+    password: process.env.DB_PASSWORD,
+    database: 'taylorswiftranker'
 
     
 });
@@ -157,6 +157,10 @@ app.get('/evermore', function(req, res) {
 });
 
 app.get('/midnights', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+});
+
+app.get('/thetorturedpoetsdepartment', function(req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 

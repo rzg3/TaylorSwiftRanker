@@ -73,9 +73,12 @@ function Favorites({currUser}) {
                         </h5>}     
                         
                 </div>
-                <button className="btn btn-outline-primary submitButton" onClick={event => navigate(`/user/${currUser}`)} style={{width: '50%', minWidth: '10vh', marginTop: '.75vh'}}>
-                See Profile
-                </button>
+                <button 
+                style={{maxWidth: '100%'}} 
+                className='btn btn-outline-primary submitButton smallBtn' 
+                onClick={(e) => navigate(`/user/${currUser}`)}>
+                    See Profile
+                </button> 
                 
             </>
         

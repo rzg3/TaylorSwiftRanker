@@ -13,7 +13,7 @@ function Rankings(props) {
     const [albumSongRankings, setAlbumSongRankings] = useState([])
     const [songRankings, setSongRankings] = useState([])
     const navigate = useNavigate();
-    const albumTitles = ['Taylor Swift', 'Fearless', 'Speak Now', 'Red', '1989', 'Reputation', 'Lover', 'folklore', 'evermore', 'Midnights']
+    const albumTitles = ['Taylor Swift', 'Fearless', 'Speak Now', 'Red', '1989', 'Reputation', 'Lover', 'folklore', 'evermore', 'Midnights', 'THE TORTURED POETS DEPARTMENT']
 
     useEffect(() => {
         fetchRankings();
