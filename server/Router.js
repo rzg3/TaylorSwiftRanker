@@ -440,7 +440,7 @@ class Router {
                 res.status(500).send('Internal Server Error');
               } else {
                 const getSongRankings = (index) => {
-                  if (index > 10) {
+                  if (index > 11) {
                     // Finished querying all song rankings
                     res.json({ albums: albumResults, albumSongs: AlbumSongRankings, songs: songResults });
                     return;
@@ -537,7 +537,7 @@ class Router {
               res.status(500).send('Internal Server Error');
             } else {
               const getSongRankings = (index) => {
-                if (index > 10) {
+                if (index > 11) {
                   // Finished querying all song rankings
                   res.json({ albums: albumResults, albumSongs: AlbumSongRankings, songs: songResults });
                   return;
