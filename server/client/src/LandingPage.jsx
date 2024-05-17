@@ -27,7 +27,6 @@ function LandingPage() {
         </div>
         <footer>
             <AboutButton />
-            <p className='legal'>All copyrighted content (i.e. album artwork) on Taylor Swift Ranker are owned by their respective owners (Taylor Swift / Record Labels).</p>
         </footer>
     
     </div>

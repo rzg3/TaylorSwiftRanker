@@ -275,16 +275,19 @@ h3 {
 
 footer {
   position: absolute;
-  left: 0;
   bottom: 0;
-  /* text-align: center; */
+  width: 50vw; /* This sets the footer to take up the middle third of the screen */
+  left: 0;
   right: 0;
+  margin: 0 auto; /* This centers the footer horizontally */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: -1;
+  min-height: 15vh;
 }
+
+
 
 .rightContain {
   margin-right: 5vh;

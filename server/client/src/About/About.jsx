@@ -15,6 +15,9 @@ function About() {
             <img className='m-3' style={{height: '50px', width: '50px'}}  src={'github.png'} ></img>
         </a>
         <button className='btn btn-outline-primary submitButton smallBtn' onClick={(e) => navigate('/')}>Return</button> 
+        <footer>
+          <p className='legal' >All copyrighted content (i.e. album artwork) on Taylor Swift Ranker are owned by their respective owners (Taylor Swift / Record Labels).</p>
+        </footer>
         
     </div>
     
