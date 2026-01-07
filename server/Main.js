@@ -9,6 +9,8 @@ const dotenv = require('dotenv').config();
 const fs = require('fs');
 const https = require('https');
 const http = require('http');
+const { Server } = require('socket.io');
+const { initSocketHandler } = require('./SocketHandler');
 
 // app.enable('trust proxy')
 // app.use((req, res, next) => {
@@ -57,10 +59,10 @@ var db = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: 'taylorswiftranker'
 
-    
+
 });
 console.log('Before connecting to the database.');
-db.connect(function(err) {
+db.connect(function (err) {
     if (err) {
         console.error('Database connection failed: ' + err.stack);
         return;
@@ -70,7 +72,7 @@ db.connect(function(err) {
 console.log('After connecting to the database.');
 
 const sessionStore = new MySQLStore({
-    expiration:(1825 * 86400 * 1000),
+    expiration: (1825 * 86400 * 1000),
     endConnectionOnClose: false
 }, db);
 
@@ -88,82 +90,85 @@ app.use(session({
 
 new Router(app, db);
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/about', function(req, res) {
+app.get('/about', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/dashboard', function(req, res) {
+app.get('/dashboard', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/register', function(req, res) {
+app.get('/register', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/albums', function(req, res) {
+app.get('/albums', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/songs', function(req, res) {
+app.get('/songs', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/globalrankings', function(req, res) {
+app.get('/globalrankings', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/user/:username', function(req, res) {
+app.get('/user/:username', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/taylorswift', function(req, res) {
+app.get('/taylorswift', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/fearless', function(req, res) {
+app.get('/fearless', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/speaknow', function(req, res) {
+app.get('/speaknow', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/red', function(req, res) {
+app.get('/red', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/1989', function(req, res) {
+app.get('/1989', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/reputation', function(req, res) {
+app.get('/reputation', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/lover', function(req, res) {
+app.get('/lover', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/folklore', function(req, res) {
+app.get('/folklore', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/evermore', function(req, res) {
+app.get('/evermore', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/midnights', function(req, res) {
+app.get('/midnights', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
-app.get('/thetorturedpoetsdepartment', function(req, res) {
+app.get('/thetorturedpoetsdepartment', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
 });
 
+app.get('/dalaoer', function (req, res) {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+});
 
 
 
@@ -173,6 +178,11 @@ app.get('/thetorturedpoetsdepartment', function(req, res) {
 // });
 
 const httpServer = http.createServer(app);
+
+// Initialize Socket.IO for Da Lao Er game
+const io = new Server(httpServer);
+initSocketHandler(io);
+
 httpServer.listen(3000, () => {
-  console.log('HTTP server is running on port 3000');
+    console.log('HTTP server is running on port 3000');
 });
